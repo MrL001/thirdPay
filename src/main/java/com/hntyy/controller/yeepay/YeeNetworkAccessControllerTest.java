@@ -208,7 +208,7 @@ public class YeeNetworkAccessControllerTest {
         String apiUri = "/rest/v2.0/mer/register/query";
         YopRequest request = new YopRequest();
         // 入网请求号
-        String requestNo = "d837875b7def44eb83dd8d79e1192531";
+        String requestNo = "9f8240ddca4a42fbb2a729a355054550";
         request.addParam("requestNo", requestNo);
         YopResponse response = YopRsaClient.get(apiUri, request);
         Map result = (Map) response.getResult();

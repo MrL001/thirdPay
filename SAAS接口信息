@@ -1,0 +1,37 @@
+中台SAAS
+其它接口地址：https://open.yeepay.com/docs/v2/products/fwssfk/index.html
+子商户入网接口
+资质上传接口，上传资质图片获取图片链接 调入网接口时使用：https://open.yeepay.com/docs/v2/products/fwssfk/apis/options__yos__v1.0__sys__merchant__qual__upload/index.html
+特约商户入网(企业/个体)：https://open.yeepay.com/docs/v2/products/fwssfk/apis/options__rest__v2.0__mer__register__saas__merchant/index.html
+小微商户：https://open.yeepay.com/docs/v2/products/fwssfk/apis/options__rest__v2.0__mer__register__saas__micro/index.html
+入网进度查询：https://open.yeepay.com/docs/v2/products/fwssfk/apis/options__rest__v2.0__mer__register__query/index.html
+入网回调：https://open.yeepay.com/docs/v2/products/ptssfk/others/5f3de63c20289f001ba82527/index.html
+
+交易接口
+调交易接口获取TOKEN 调支付接口完成支付
+公众号、小程序appid 支付授权目录配置接口：https://open.yeepay.com/docs/v2/products/ptssfk/apis/options__rest__v1.0__aggpay__wechat-config__add/index.html
+交易：https://open.yeepay.com/docs/v2/products/fwssfk/apis/options__rest__v1.0__trade__order/index.html
+网银、银行卡快捷支付：https://open.yeepay.com/docs/v2/products/ptssfk/others/5f4ca53e00f514001b61b553/index.html
+微信、支付宝支付：https://open.yeepay.com/docs/v2/products/ptssfk/apis/options__rest__v1.0__nccashierapi__api__pay/index.html
+支付成功回调：https://open.yeepay.com/docs/v2/products/ptssfk/others/5f3bd27d20289f001ba82522/index.html
+
+分账
+申请分账：https://open.yeepay.com/docs/v2/products/ptssfk/apis/options__rest__v1.0__divide__apply/index.html
+完结分账（如订单后续不需要再进行分账，可直接调用此接口将订单剩余可分账金额全部给收款商户）：https://open.yeepay.com/docs/v2/products/ptssfk/apis/options__rest__v1.0__divide__complete/index.html
+
+查询分账（发起分账请求后，可调用此接口查询分账结果。
+）https://open.yeepay.com/docs/v2/products/ptssfk/apis/options__rest__v1.0__divide__query/index.html
+申请分账归还（平台商可调用此接口，将已分账的资金从分账接收方的账户回退给分账方账户。退款时如需分账接收方归还分账资金，可以先调此接口，再发起退款。
+注意：分账订单的退款与分账资金归还并无强耦合，分账资金归还可先于退款发起，可后于退款发起，或者根据分账接收方与商户的约定，不发起分账资金归还。）：https://open.yeepay.com/docs/v2/products/ptssfk/apis/options__rest__v1.0__divide__back/index.html
+
+查询分账归还结果：https://open.yeepay.com/docs/v2/products/ptssfk/apis/options__rest__v1.0__divide__back__query/index.html
+
+
+企业/个体入网：
+	开通产品信息->产品码productCode->微信小程序的是百分比SINGLE_PERCENT
+	开通产品信息productinfo  这里参数里把D1 结算 的信息也加进去
+	结算账户信息settlementAccountInfo也需要填,里面银行信息我填的是（开户许可证的）
+
+	铭记金泽（简称写：校源汇）平台有分账，其他的不管都设置成入驻商户
+	有分账 入网时就注册成平台商 businessRole=PLATFORM_MERCHANT
+	平台商入网完成之后 要分账的商户在注册成入驻商户（小微 、个体、企业） businessRole=SETTLED_MERCHANT
