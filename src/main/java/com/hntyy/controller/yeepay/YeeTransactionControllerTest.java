@@ -44,7 +44,7 @@ public class YeeTransactionControllerTest {
         // 1.给平台商配置填平台商编号  2.给平台商下的子账户配置的化填子商户的商户编号
         request.addParam("merchantNo", merchantNo);
         request.addParam("tradeAuthDirList", "");
-        request.addParam("appIdList", "");
+        request.addParam("appIdList", "111");
 
     }
 

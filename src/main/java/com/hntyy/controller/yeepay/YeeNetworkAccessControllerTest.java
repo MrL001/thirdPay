@@ -30,7 +30,7 @@ public class YeeNetworkAccessControllerTest {
     private static String appKey = "app_10085834246";
 
     /**
-     * 子商户入网资质文件上传
+     * 子商户入网资质文件上传 成功
      * @param args
      * @throws IOException
      */
@@ -51,7 +51,7 @@ public class YeeNetworkAccessControllerTest {
         //arg1:文件路径
 
         // 本地文件模式（可选）
-         request.addFile("merQual",new File("D:/入网资料/铭记金泽入网资料/手持营业执照在经营场所的照片.JPG"));
+         request.addFile("merQual",new File("D:/入网资料/小微/身份证反面照片.JPG"));
 
         // 远程文件模式（可选）
 //        request.addFile("merQual",new URL("https://imgs.yeepay.com/img/1533693637515_shouye0808.jpg").openStream());
@@ -74,7 +74,7 @@ public class YeeNetworkAccessControllerTest {
     }
 
     /**
-     * 特约商户入网(企业/个体) 铭记金泽入网
+     * 特约商户入网(企业/个体) 铭记金泽入网  成功
      * @param args
      * @throws IOException
      */
@@ -170,7 +170,7 @@ public class YeeNetworkAccessControllerTest {
     }
 
     /**
-     * 小微入网
+     * 小微入网 成功 非人工，处理快
      * @param args
      */
     public static void main4(String[] args) throws IOException {
@@ -183,27 +183,32 @@ public class YeeNetworkAccessControllerTest {
         System.out.println(requestNo);
         request.addParam("requestNo", requestNo);
         request.addParam("parentMerchantNo", merchantNo);
-        request.addParam("merchantSubjectInfo", "{ \"signType\":\"ENTERPRISE\", \"licenceNo\":\"91430111MA4L3L082K\", \"licenceUrl\":\"http://staticres.yeepay.com/jcptb-merchant-netinjt03/2020/12/17/merchant-1608171070120-FbsP9xxiSkKPKSz9cRCJeg-yblBnBoDjFGeIUBBENad.JPG\", \"signName\":\"武汉东方龙餐饮管理有限公司湖南分公司\", \"shortName\":\"东方龙餐饮\",\"openAccountLicenceNo\":\"5510-01475423\",\"openAccountLicenceUrl\":\"http://staticres.yeepay.com/jcptb-merchant-netinjt03/2020/12/17/merchant-1608171515228-TOsIhNT2S9-zRWqJ5QvLEw-lhJMkAqHaqAjBgEjPNVo.JPG\",\"handLicenceUrl\":\"http://staticres.yeepay.com/jcptb-merchant-netinjt03/2020/12/17/merchant-1608171821259-XoalHLmkTjSjRdtePK9sKA-BiKKBllpSnGDUrFetUiN.JPG\" }");
-        request.addParam("businessAddressInfo", "{ \"province\":\"430000\", \"city\":\"430100\", \"district\":\"430111\", \"address\":\"迎新路868号德思勤城市广场A-1项目第A3栋2113号\" }");
-        request.addParam("accountInfo", "{ \"settlementDirection\":\"BANKCARD\", \"bankCode\":\"CCB\", \"bankAccountType\":\"ENTERPRISE_ACCOUNT\", \"bankCardNo\":\"43050177373600000071\" }");
+        // 填姓名即可
+        request.addParam("merchantSubjectInfo", "{ \"signName\":\"罗送军\", \"shortName\":\"罗\" }");
+        request.addParam("merchantCorporationInfo", "{ \"legalLicenceType\":\"ID_CARD\", \"legalLicenceNo\":\"500233199401253111\", \"legalLicenceFrontUrl\":\"http://staticres.yeepay.com/jcptb-merchant-netinjt03/2020/12/19/merchant-1608367744871-d97J6WtTQQadQa2n0I6AjA-OVfcmPajgdIdjFgWCmRc.JPG\", \"legalLicenceBackUrl\":\"http://staticres.yeepay.com/jcptb-merchant-netinjt03/2020/12/19/merchant-1608367785671-qqjlLfdbT6uF0v7ftRxJdw-OtzHursuGOWnXnuNEGBs.JPG\", \"mobile\":\"17680329357\" }");
+        // 填身份证地址即可
+        request.addParam("businessAddressInfo", "{ \"province\":\"430000\", \"city\":\"431000\", \"district\":\"431002\", \"address\":\"万华岩镇下凤村13组\" }");
+        request.addParam("accountInfo", "{\"bankAccountType\":\"DEBIT_CARD\",\"bankCardNo\":\"6214837403472339\",\"bankCode\":\"CMBCHINA\"}}");
         request.addParam("notifyUrl", "http://lsj.ngrok2.xiaomiqiu.cn/notifyUrl/registerSaasMerchant");
-        request.addParam("productInfo", "[{\"productCode\":\"MINI_PROGRAM_WECHAT_ONLINE\",\"rateType\":\"SINGLE_PERCENT\",\"percentRate\":\"0.1\"},{\"productCode\":\"D1\",\"rateType\":\"SINGLE_FIXED\",\"fixedRate\":\"1\"}]");
+        // 测试随意填的即可
+        request.addParam("productInfo", "[{\"productCode\":\"MINI_PROGRAM_WECHAT_OFFLINE\",\"rateType\":\"SINGLE_PERCENT\",\"percentRate\":\"0.1\"},{\"productCode\":\"D1\",\"rateType\":\"SINGLE_FIXED\",\"fixedRate\":\"0.1\"}]");
+
 
         //step3 发起请求
         YopResponse response = YopRsaClient.post(apiUri, request);
-
+        System.out.println(response.toString());
 
     }
 
     /**
-     * 商户入网进度查询接口
+     * 商户入网进度查询接口  成功
      * @param args
      */
     public static void main(String[] args) throws IOException {
         String apiUri = "/rest/v2.0/mer/register/query";
         YopRequest request = new YopRequest();
         // 入网请求号
-        String requestNo = "9f8240ddca4a42fbb2a729a355054550";
+        String requestNo = "d837875b7def44eb83dd8d79e1192531";
         request.addParam("requestNo", requestNo);
         YopResponse response = YopRsaClient.get(apiUri, request);
         Map result = (Map) response.getResult();
