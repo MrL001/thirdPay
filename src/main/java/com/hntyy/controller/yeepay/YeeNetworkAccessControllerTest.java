@@ -27,6 +27,9 @@ public class YeeNetworkAccessControllerTest {
     // 平台商 商户编号
     private static String merchantNo = "10085843316";
 
+    // 东方龙商户编号
+    private static String sonMerchantNo = "10085848604";
+
     private static String appKey = "app_10085834246";
 
     /**
@@ -34,9 +37,13 @@ public class YeeNetworkAccessControllerTest {
      * @param args
      * @throws IOException
      */
-    public static void main1(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
         /* 上传文件*/
         //上传文件目前支持文件流，远程文件，本地文件3个模式，下面例子为本地模式
+
+        /**
+         * 接口传参 fileUrl
+         */
 
         //请求URI
         String apiUri = "/yos/v1.0/sys/merchant/qual/upload";
@@ -51,7 +58,7 @@ public class YeeNetworkAccessControllerTest {
         //arg1:文件路径
 
         // 本地文件模式（可选）
-         request.addFile("merQual",new File("D:/入网资料/小微/身份证反面照片.JPG"));
+         request.addFile("merQual",new File("D:/入网资料/东方龙餐饮/手持营业执照.JPG"));
 
         // 远程文件模式（可选）
 //        request.addFile("merQual",new URL("https://imgs.yeepay.com/img/1533693637515_shouye0808.jpg").openStream());
@@ -127,7 +134,7 @@ public class YeeNetworkAccessControllerTest {
 
 
     /**
-     * 特约商户入网(企业/个体) 其他入驻商户入网
+     * 特约商户入网(企业/个体) 其他入驻商户入网  成功
      * @param args
      * @throws IOException
      */
@@ -144,7 +151,7 @@ public class YeeNetworkAccessControllerTest {
         request.addParam("parentMerchantNo", merchantNo);
         // 入网商户业务角色:  ORDINARY_MERCHANT:标准商户  PLATFORM_MERCHANT:平台商  SETTLED_MERCHANT:入驻商户
         request.addParam("businessRole", "SETTLED_MERCHANT");
-        request.addParam("merchantSubjectInfo", "{ \"signType\":\"ENTERPRISE\", \"licenceNo\":\"91430111MA4L3L082K\", \"licenceUrl\":\"http://staticres.yeepay.com/jcptb-merchant-netinjt03/2020/12/17/merchant-1608171070120-FbsP9xxiSkKPKSz9cRCJeg-yblBnBoDjFGeIUBBENad.JPG\", \"signName\":\"武汉东方龙餐饮管理有限公司湖南分公司\", \"shortName\":\"东方龙餐饮\",\"openAccountLicenceNo\":\"5510-01475423\",\"openAccountLicenceUrl\":\"http://staticres.yeepay.com/jcptb-merchant-netinjt03/2020/12/17/merchant-1608171515228-TOsIhNT2S9-zRWqJ5QvLEw-lhJMkAqHaqAjBgEjPNVo.JPG\",\"handLicenceUrl\":\"http://staticres.yeepay.com/jcptb-merchant-netinjt03/2020/12/17/merchant-1608171821259-XoalHLmkTjSjRdtePK9sKA-BiKKBllpSnGDUrFetUiN.JPG\" }");
+        request.addParam("merchantSubjectInfo", "{ \"signType\":\"ENTERPRISE\", \"licenceNo\":\"91430111MA4L3L082K\", \"licenceUrl\":\"http://staticres.yeepay.com/jcptb-merchant-netinjt03/2020/12/17/merchant-1608171070120-FbsP9xxiSkKPKSz9cRCJeg-yblBnBoDjFGeIUBBENad.JPG\", \"signName\":\"武汉东方龙餐饮管理有限公司湖南分公司\", \"shortName\":\"东方龙餐饮\",\"openAccountLicenceNo\":\"5510-01475423\",\"openAccountLicenceUrl\":\"http://staticres.yeepay.com/jcptb-merchant-netinjt03/2020/12/17/merchant-1608171515228-TOsIhNT2S9-zRWqJ5QvLEw-lhJMkAqHaqAjBgEjPNVo.JPG\",\"handLicenceUrl\":\"http://staticres.yeepay.com/jcptb-merchant-netinjt03/2020/12/21/merchant-1608542531175-WZdC9I9rQqq3YQm73ilytg-trFnAwXSXcqTMARXaiUL.JPG\" }");
         request.addParam("merchantCorporationInfo", "{ \"legalName\":\"马中华\", \"legalLicenceType\":\"ID_CARD\", \"legalLicenceNo\":\"411321197612220723\", \"legalLicenceFrontUrl\":\"http://staticres.yeepay.com/jcptb-merchant-netinjt03/2020/12/17/merchant-1608172320236-kQD9VUzVQR-9Ur57OWZuGQ-EGnBwFrwccevQCdjCUiS.PNG\", \"legalLicenceBackUrl\":\"http://staticres.yeepay.com/jcptb-merchant-netinjt03/2020/12/17/merchant-1608172399569-WwHyWIclS1Sf6RreI-wsjQ-COpEglcveXNlwGnldoMM.PNG\" }");
         request.addParam("merchantContactInfo", "{ \"contactName\":\"陈强\", \"contactMobile\":\"18874149131\", \"contactEmail\":\"xyh@mjjzxyh.com\", \"contactLicenceNo\":\"4301241987071086551\" }");
 //        request.addParam("industryCategoryInfo", "");
@@ -204,11 +211,11 @@ public class YeeNetworkAccessControllerTest {
      * 商户入网进度查询接口  成功
      * @param args
      */
-    public static void main(String[] args) throws IOException {
+    public static void main5(String[] args) throws IOException {
         String apiUri = "/rest/v2.0/mer/register/query";
         YopRequest request = new YopRequest();
         // 入网请求号
-        String requestNo = "9f8240ddca4a42fbb2a729a355054550";
+        String requestNo = "62d31dc6e6df40a8afcb611b17052f2a";
         request.addParam("requestNo", requestNo);
         YopResponse response = YopRsaClient.get(apiUri, request);
         Map result = (Map) response.getResult();
@@ -221,6 +228,41 @@ public class YeeNetworkAccessControllerTest {
         merRegisterQueryResult.setApplicationStatus((String) result.get("applicationStatus"));
         merRegisterQueryResult.setAuditOpinion((String) result.get("auditOpinion"));
         System.out.println(JSON.toJSONString(merRegisterQueryResult));
+    }
+
+    /**
+     * 商户产品费率变更 完成
+     * @param args
+     */
+    public static void main6(String[] args) throws IOException {
+        String apiUri = "/rest/v2.0/mer/product/fee/modify";
+        YopRequest request = new YopRequest();
+        String requestNo = UUID.randomUUID().toString().replaceAll("-", "");
+        request.addParam("requestNo", requestNo);
+        request.addParam("parentMerchantNo", merchantNo);
+        request.addParam("merchantNo", sonMerchantNo);
+        request.addParam("notifyUrl", "http://lsj.ngrok2.xiaomiqiu.cn/notifyUrl/merProductFeeModify");
+        request.addParam("productInfo", "[{\"productCode\":\"MINI_PROGRAM_WECHAT_OFFLINE\",\"rateType\":\"SINGLE_PERCENT\",\"percentRate\":\"0.61\",\"undertaker\":\"SETTLED_MERCHANT\",\"paymentMethod\":\"REAL_TIME\"},{\"productCode\":\"MINI_PROGRAM_ALIPAY_OFFLINE\",\"rateType\":\"SINGLE_PERCENT\",\"percentRate\":\"0.61\",\"undertaker\":\"SETTLED_MERCHANT\",\"paymentMethod\":\"REAL_TIME\"},{\"productCode\":\"D1\",\"rateType\":\"SINGLE_FIXED\",\"fixedRate\":\"2\",\"undertaker\":\"SETTLED_MERCHANT\",\"paymentMethod\":\"REAL_TIME\"}]");
+
+        //step3 发起请求
+        YopResponse response = YopRsaClient.post(apiUri, request);
+        System.out.println(response.toString());
+
+    }
+
+    /**
+     * 商户产品费率查询 完成
+     * @param args
+     */
+    public static void main7(String[] args) throws IOException {
+        String apiUri = "/rest/v2.0/mer/product/fee/query";
+        YopRequest request = new YopRequest();
+        request.addParam("parentMerchantNo", merchantNo);
+        // 子商户编号
+        request.addParam("merchantNo", sonMerchantNo);
+        //step3 发起请求
+        YopResponse response = YopRsaClient.get(apiUri, request);
+        System.out.println(response.toString());
     }
 
 }

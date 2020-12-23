@@ -1,5 +1,6 @@
 package com.hntyy.bean.yeepay.result;
 
+import io.swagger.models.auth.In;
 import lombok.Data;
 
 /**
@@ -7,6 +8,16 @@ import lombok.Data;
  */
 @Data
 public class QualUploadResult {
+
+    /**
+     * 文件上传url
+     */
+    private String fileUrl;
+
+    /**
+     * 文件类型 1.本地文件 2.远程文件
+     */
+    private Integer fileType;
 
     /**
      * 响应信息

@@ -3,7 +3,7 @@ package com.hntyy.bean.yeepay.result;
 import lombok.Data;
 
 /**
- * 特约商户入网 返回实体
+ * 特约商户入网 & 产品费率 返回实体
  */
 @Data
 public class RegisterSaasMerchantResult {

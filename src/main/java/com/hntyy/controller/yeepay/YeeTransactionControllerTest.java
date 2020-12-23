@@ -1,6 +1,7 @@
 package com.hntyy.controller.yeepay;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.hntyy.bean.yeepay.query.RegisterSaasMicroQuery;
 import com.hntyy.bean.yeepay.result.MerRegisterQueryResult;
 import com.hntyy.bean.yeepay.result.QualUploadResult;
@@ -8,11 +9,18 @@ import com.hntyy.bean.yeepay.result.RegisterSaasMerchantResult;
 import com.yeepay.g3.sdk.yop.client.YopRequest;
 import com.yeepay.g3.sdk.yop.client.YopResponse;
 import com.yeepay.g3.sdk.yop.client.YopRsaClient;
+import com.yeepay.g3.sdk.yop.encrypt.CertTypeEnum;
+import com.yeepay.g3.sdk.yop.encrypt.DigestAlgEnum;
 import com.yeepay.g3.sdk.yop.encrypt.DigitalEnvelopeDTO;
+import com.yeepay.g3.sdk.yop.encrypt.RSA;
+import com.yeepay.g3.sdk.yop.utils.InternalConfig;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.PrivateKey;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.UUID;
 
 /**
@@ -31,21 +39,143 @@ public class YeeTransactionControllerTest {
 
     private static String appKey = "app_10085834246";
 
+    // 微信小程序appId
+    private static String appId = "wx5f0e254d6e3749a2";
+
     /**
-     * 公众号配置接口
+     * 公众号配置接口  成功
      * @param args
      * @throws IOException
      */
-    public static void main(String[] args) throws IOException {
-        String apiUri = "/rest/v2.0/mer/register/saas/micro";
+    public static void main1(String[] args) throws IOException {
+        String apiUri = "/rest/v2.0/aggpay/wechat-config/add";
         YopRequest request = new YopRequest();
+
         // 平台商编号
         request.addParam("parentMerchantNo", merchantNo);
-        // 1.给平台商配置填平台商编号  2.给平台商下的子账户配置的化填子商户的商户编号
+        // 1.给平台商配置填平台商编号  2.给平台商下的子账户配置的话填子商户的商户编号
         request.addParam("merchantNo", merchantNo);
-        request.addParam("tradeAuthDirList", "");
-        request.addParam("appIdList", "111");
+        // 小程序不需要tradeAuthDirList支付授权目录，目前只做小程序支付
+//        request.addParam("tradeAuthDirList", "[\"http://www.yeepay.com\",\"http://www.yeepay.com\"]");
+        // subscribeAppId:推荐关注appId，目前也不需要
+        request.addParam("appIdList", "[{\"appId\":\"wx5f0e254d6e3749a2\",\"appIdType\":\"MINI_PROGRAM\"}]");
+        YopResponse response = YopRsaClient.post(apiUri, request);
+        System.out.println(response.toString());
+    }
 
+    /**
+     * 公众号配置查询  成功
+     * @param args
+     * @throws IOException
+     */
+    public static void main2(String[] args) throws IOException {
+        String apiUri = "/rest/v2.0/aggpay/wechat-config/query";
+        YopRequest request = new YopRequest();
+
+        // 平台商编号
+        request.addParam("parentMerchantNo", merchantNo);
+        // 1.给平台商配置填平台商编号  2.给平台商下的子账户配置的话填子商户的商户编号
+        request.addParam("merchantNo", merchantNo);
+        request.addParam("appIdType", "MINI_PROGRAM");
+        YopResponse response = YopRsaClient.get(apiUri, request);
+        System.out.println(response.toString());
+    }
+
+    /**
+     * 交易下单(商户需先调用该接口生成预支付订单，易宝返回支付授权 token 后，再使用 token 调起相应支付。)  单笔订单
+     * 平台方收款在分账给子商户: 多笔订单金额算成总价,自己处理标识以后分账填对应的入驻商户
+     * @param args
+     * @throws IOException
+     */
+    public static void main3(String[] args) throws IOException {
+        String apiUri = "/rest/v1.0/trade/order";
+        YopRequest request = new YopRequest();
+
+        request.addParam("parentMerchantNo", merchantNo);
+        // 单笔收款必传 合单不传
+        request.addParam("merchantNo", merchantNo);
+        // 商户收款请求号
+        String orderId = UUID.randomUUID().toString().replaceAll("-", "");
+        System.out.println(orderId);
+        // 总订单号
+        request.addParam("orderId", orderId);
+        // 总订单金额
+        request.addParam("orderAmount", 0.01);
+        // 单笔收款必传
+        request.addParam("goodsName", "测试商品001");
+        // 分账
+        request.addParam("fundProcessType", "DELAY_SETTLE");
+        // 接收支付成功回调地址
+        request.addParam("notifyUrl", "http://lsj.ngrok2.xiaomiqiu.cn/notifyUrl/payResult");
+//        request.addParam("memo", merchantNo);
+
+        // 订单过期时间，格式为YYYY-MM-DD HH:mm:ss，为空时默认在请求下单120分钟后失效，最长支持30天。使用默认时间
+//        request.addParam("expiredTime", "");
+        // 清算成功服务器回调地址
+        request.addParam("csUrl", "http://lsj.ngrok2.xiaomiqiu.cn/notifyUrl/reckoningSuccess");
+        YopResponse response = YopRsaClient.post(apiUri, request);
+        System.out.println(response.toString());
+    }
+
+    /**
+     * 交易下单(商户需先调用该接口生成预支付订单，易宝返回支付授权 token 后，再使用 token 调起相应支付。)  合单
+     * @param args
+     * @throws IOException
+     */
+//    public static void main(String[] args) throws IOException {
+//        String apiUri = "/rest/v1.0/trade/order";
+//        YopRequest request = new YopRequest();
+//
+//        request.addParam("parentMerchantNo", merchantNo);
+//        String orderId = UUID.randomUUID().toString().replaceAll("-", "");
+//        // 总订单号
+//        request.addParam("orderId", orderId);
+//        // 总订单金额
+//        request.addParam("orderAmount", 0.02);
+//        // 接收支付成功回调地址
+//        request.addParam("notifyUrl", "http://lsj.ngrok2.xiaomiqiu.cn/notifyUrl/payResult");
+////        request.addParam("memo", merchantNo);
+//        //合单必传
+//        request.addParam("subOrderDetail", "[{\"orderId\":\"1234567890fds\",\"orderAmount\":\"0.01\",\"goodsName\":\"测试商品002\",\"fundProcessType\":\"DELAY_SETTLE\"},{\"orderAmount\":\"0.02\",\"goodsName\":\"测试商品003\",\"fundProcessType\":\"DELAY_SETTLE\"}]");
+//
+//        // 订单过期时间，格式为YYYY-MM-DD HH:mm:ss，为空时默认在请求下单120分钟后失效，最长支持30天。使用默认时间
+////        request.addParam("expiredTime", "");
+//        // 支付成功后跳转的URL  网银 银行卡快捷支付生效
+////        request.addParam("redirectUrl", "");
+//        // 清算成功服务器回调地址
+//        request.addParam("csUrl", "http://lsj.ngrok2.xiaomiqiu.cn/notifyUrl/reckoningSuccess");
+//        YopResponse response = YopRsaClient.post(apiUri, request);
+//        System.out.println(response.toString());
+//    }
+
+    /**
+     * 聚合API收银台 微信 线下
+     * @param args
+     * @throws IOException
+     *
+     * 登录你们微信渠道商后台，在用联系人的微信扫描下载的二维码
+     */
+    public static void main4(String[] args) throws IOException {
+        String apiUri = "/rest/v1.0/nccashierapi/api/pay";
+
+        YopRequest request = new YopRequest();
+        // 支付工具：小程序
+        request.addParam("payTool", "MINI_PROGRAM");
+        // 支付类型 WECHAT ALIPAY
+        request.addParam("payType", "WECHAT");
+        request.addParam("token", "440A0654325338F60E59C1BB79BDF39047D721B3E7428E20056C69242AE7EEEA");
+        // 微信小程序的appId
+        request.addParam("appId", "wx5f0e254d6e3749a2");
+        // 动态生成
+        request.addParam("openId", "ogqBq5Goe-EAINEvCt1I-LFsZJwk");
+        request.addParam("version", "1.0");
+        // IPV4格式
+        request.addParam("userIp", "192.168.0.39");
+        request.addParam("extParamMap", "{\"reportFee\":\"XIANXIA\"}");
+
+        //step3 发起请求
+        YopResponse response = YopRsaClient.post(apiUri, request);
+        System.out.println(response.toString());
     }
 
 }

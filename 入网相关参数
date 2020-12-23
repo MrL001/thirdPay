@@ -23,12 +23,12 @@ YopResponse[state=SUCCESS,requestId=dUKbt_yORF2hhMrl2UcSLw,result={returnCode=NI
 {"applicationNo":"TYSHRW20201218174945936399","applicationStatus":"COMPLETED","merchantNo":"10085843316","requestNo":"1bb657974266482e81f6cdc3b82af5d2","returnCode":"NIG00000","returnMsg":"请求成功"}
 
 
-东方龙餐饮入网参数
-  request.addParam("requestNo", requestNo);
+东方龙餐饮入网参数  成功
+request.addParam("requestNo", requestNo);
         request.addParam("parentMerchantNo", merchantNo);
         // 入网商户业务角色:  ORDINARY_MERCHANT:标准商户  PLATFORM_MERCHANT:平台商  SETTLED_MERCHANT:入驻商户
         request.addParam("businessRole", "SETTLED_MERCHANT");
-        request.addParam("merchantSubjectInfo", "{ \"signType\":\"ENTERPRISE\", \"licenceNo\":\"91430111MA4L3L082K\", \"licenceUrl\":\"http://staticres.yeepay.com/jcptb-merchant-netinjt03/2020/12/17/merchant-1608171070120-FbsP9xxiSkKPKSz9cRCJeg-yblBnBoDjFGeIUBBENad.JPG\", \"signName\":\"武汉东方龙餐饮管理有限公司湖南分公司\", \"shortName\":\"东方龙餐饮\",\"openAccountLicenceNo\":\"5510-01475423\",\"openAccountLicenceUrl\":\"http://staticres.yeepay.com/jcptb-merchant-netinjt03/2020/12/17/merchant-1608171515228-TOsIhNT2S9-zRWqJ5QvLEw-lhJMkAqHaqAjBgEjPNVo.JPG\",\"handLicenceUrl\":\"http://staticres.yeepay.com/jcptb-merchant-netinjt03/2020/12/17/merchant-1608171821259-XoalHLmkTjSjRdtePK9sKA-BiKKBllpSnGDUrFetUiN.JPG\" }");
+        request.addParam("merchantSubjectInfo", "{ \"signType\":\"ENTERPRISE\", \"licenceNo\":\"91430111MA4L3L082K\", \"licenceUrl\":\"http://staticres.yeepay.com/jcptb-merchant-netinjt03/2020/12/17/merchant-1608171070120-FbsP9xxiSkKPKSz9cRCJeg-yblBnBoDjFGeIUBBENad.JPG\", \"signName\":\"武汉东方龙餐饮管理有限公司湖南分公司\", \"shortName\":\"东方龙餐饮\",\"openAccountLicenceNo\":\"5510-01475423\",\"openAccountLicenceUrl\":\"http://staticres.yeepay.com/jcptb-merchant-netinjt03/2020/12/17/merchant-1608171515228-TOsIhNT2S9-zRWqJ5QvLEw-lhJMkAqHaqAjBgEjPNVo.JPG\",\"handLicenceUrl\":\"http://staticres.yeepay.com/jcptb-merchant-netinjt03/2020/12/21/merchant-1608542531175-WZdC9I9rQqq3YQm73ilytg-trFnAwXSXcqTMARXaiUL.JPG\" }");
         request.addParam("merchantCorporationInfo", "{ \"legalName\":\"马中华\", \"legalLicenceType\":\"ID_CARD\", \"legalLicenceNo\":\"411321197612220723\", \"legalLicenceFrontUrl\":\"http://staticres.yeepay.com/jcptb-merchant-netinjt03/2020/12/17/merchant-1608172320236-kQD9VUzVQR-9Ur57OWZuGQ-EGnBwFrwccevQCdjCUiS.PNG\", \"legalLicenceBackUrl\":\"http://staticres.yeepay.com/jcptb-merchant-netinjt03/2020/12/17/merchant-1608172399569-WwHyWIclS1Sf6RreI-wsjQ-COpEglcveXNlwGnldoMM.PNG\" }");
         request.addParam("merchantContactInfo", "{ \"contactName\":\"陈强\", \"contactMobile\":\"18874149131\", \"contactEmail\":\"xyh@mjjzxyh.com\", \"contactLicenceNo\":\"4301241987071086551\" }");
 //        request.addParam("industryCategoryInfo", "");
@@ -36,14 +36,18 @@ YopResponse[state=SUCCESS,requestId=dUKbt_yORF2hhMrl2UcSLw,result={returnCode=NI
         request.addParam("settlementAccountInfo", "{ \"settlementDirection\":\"BANKCARD\", \"bankCode\":\"CCB\", \"bankAccountType\":\"ENTERPRISE_ACCOUNT\", \"bankCardNo\":\"43050177373600000071\" }");
         request.addParam("notifyUrl", "http://lsj.ngrok2.xiaomiqiu.cn/notifyUrl/registerSaasMerchant");
         request.addParam("productInfo", "[{\"productCode\":\"MINI_PROGRAM_WECHAT_OFFLINE\",\"rateType\":\"SINGLE_PERCENT\",\"percentRate\":\"0.6\"},{\"productCode\":\"MINI_PROGRAM_ALIPAY_OFFLINE\",\"rateType\":\"SINGLE_PERCENT\",\"percentRate\":\"0.6\"},{\"productCode\":\"D1\",\"rateType\":\"SINGLE_FIXED\",\"fixedRate\":\"1\"}]");
-YopResponse[state=SUCCESS,requestId=JuWdoZj_TU-WbWppY-CZ0w,result={returnCode=NIG00000, returnMsg=请求成功, requestNo=9f8240ddca4a42fbb2a729a355054550, applicationNo=TYSHRW20201219114948198510, applicationStatus=REVIEWING, merchantNo=10085844267},ts=<null>,sign=<null>,error=<null>,stringResult={
+
+YopResponse[state=SUCCESS,requestId=TPtsMjCYTPeHb0bK7E6YBA,result={returnCode=NIG00000, returnMsg=请求成功, requestNo=62d31dc6e6df40a8afcb611b17052f2a, applicationNo=TYSHRW20201221172313181842, applicationStatus=REVIEWING, merchantNo=10085848604},ts=<null>,sign=<null>,error=<null>,stringResult={
     "returnCode" : "NIG00000",
     "returnMsg" : "请求成功",
-    "requestNo" : "9f8240ddca4a42fbb2a729a355054550",
-    "applicationNo" : "TYSHRW20201219114948198510",
+    "requestNo" : "62d31dc6e6df40a8afcb611b17052f2a",
+    "applicationNo" : "TYSHRW20201221172313181842",
     "applicationStatus" : "REVIEWING",
-    "merchantNo" : "10085844267"
+    "merchantNo" : "10085848604"
   },validSign=true]
+{"applicationNo":"TYSHRW20201221172313181842","applicationStatus":"REVIEWING","requestNo":"62d31dc6e6df40a8afcb611b17052f2a","returnCode":"NIG00000","returnMsg":"请求成功"}
+{"applicationStatus":"AGREEMENT_SIGNING","applicationNo":"TYSHRW20201221172313181842","agreementSignUrl":"http://elecsign.yeepay.com/inithome/?token=7556424A4A41542F4E64776131763172304A344E6E4259654854434A4F75777472756D334665706B6A6A687A5231654C6D525A41326873726A7A766F72383852464155574C6A4555664A4E710D0A724B567372734D62616E67485262447859796866514F72764457447933354D2B477037304D387749757537392B5664436764706271737379325444736E4B43594664397A776F496B3855735A0D0A32646141332F4149496D352B2F69384A755468545A304131334F652F646B31716361652F507134504A7377535036434A72557763435844617A34344E6A62314C61527362664E5879676638330D0A4C70564859686C7969595746363536655A6B455A722F4C57576F6D4663364D31586C744C3047767661627A525955356A73513D3D0D0A","requestNo":"62d31dc6e6df40a8afcb611b17052f2a","merchantNo":"10085848604"}
+{"auditOpinion":"","applicationStatus":"COMPLETED","applicationNo":"TYSHRW20201221172313181842","requestNo":"62d31dc6e6df40a8afcb611b17052f2a","merchantNo":"10085848604"}
 
 
 小微入网 完成
@@ -68,3 +72,168 @@ YopResponse[state=SUCCESS,requestId=_K8gYFr7T6akReSh4qCYBg,result={returnCode=NI
   },validSign=true]
 {"applicationStatus":"COMPLETED","applicationNo":"TYSHRW20201219165113923327","requestNo":"d837875b7def44eb83dd8d79e1192531","merchantNo":"10085845029"}
 
+
+商户产品费率变更  完成
+request.addParam("requestNo", requestNo);
+        request.addParam("parentMerchantNo", merchantNo);
+        request.addParam("merchantNo", sonMerchantNo);
+        request.addParam("notifyUrl", "http://lsj.ngrok2.xiaomiqiu.cn/notifyUrl/merProductFeeModify");
+        request.addParam("productInfo", "[{\"productCode\":\"MINI_PROGRAM_WECHAT_OFFLINE\",\"rateType\":\"SINGLE_PERCENT\",\"percentRate\":\"0.61\",\"undertaker\":\"SETTLED_MERCHANT\",\"paymentMethod\":\"REAL_TIME\"},{\"productCode\":\"MINI_PROGRAM_ALIPAY_OFFLINE\",\"rateType\":\"SINGLE_PERCENT\",\"percentRate\":\"0.61\",\"undertaker\":\"SETTLED_MERCHANT\",\"paymentMethod\":\"REAL_TIME\"},{\"productCode\":\"D1\",\"rateType\":\"SINGLE_FIXED\",\"fixedRate\":\"2\",\"undertaker\":\"SETTLED_MERCHANT\",\"paymentMethod\":\"REAL_TIME\"}]");
+YopResponse[state=SUCCESS,requestId=LG1EozxoTuiJo0qvKGBq-w,result={returnCode=NIG00000, returnMsg=请求成功, requestNo=2747f717326d4d72a42e093864c8f7f7, applicationNo=CPFLBGLC20201222111958377114, applicationStatus=REVIEWING, merchantNo=10085848604},ts=<null>,sign=<null>,error=<null>,stringResult={
+    "returnCode" : "NIG00000",
+    "returnMsg" : "请求成功",
+    "requestNo" : "2747f717326d4d72a42e093864c8f7f7",
+    "applicationNo" : "CPFLBGLC20201222111958377114",
+    "applicationStatus" : "REVIEWING",
+    "merchantNo" : "10085848604"
+  },validSign=true]
+
+公众号配置接口  完成
+YopResponse[state=SUCCESS,requestId=KVmDwKW7RZufa4T78if-0A,result={code=00000, message=成功, status=ACCEPT, configResult=[{"reportMerchantNo":"422386719","tradeAuthDirList":[],"appIdList":[{"appId":"wx5f0e254d6e3749a2","appIdType":"MINI_PROGRAM","subscribeAppId":null,"status":"ACCEPT","failReason":null}]}]},ts=<null>,sign=<null>,error=<null>,stringResult={
+    "code" : "00000",
+    "message" : "成功",
+    "status" : "ACCEPT",
+    "configResult" : "[{\"reportMerchantNo\":\"422386719\",\"tradeAuthDirList\":[],\"appIdList\":[{\"appId\":\"wx5f0e254d6e3749a2\",\"appIdType\":\"MINI_PROGRAM\",\"subscribeAppId\":null,\"status\":\"ACCEPT\",\"failReason\":null}]}]"
+  },validSign=true]
+
+公众号配置查询(看configResult里面的状态status：success配置成功。成功和失败的都有返回)
+ YopResponse[state=SUCCESS,requestId=Qihd7wihRkytlr4f-ejlSw,result={code=00000, message=成功, status=ACCEPT, configResult=[{"reportMerchantNo":"422386719","tradeAuthDirList":[],"appIdList":[{"appId":"wx5f0e254d6e3749a2","appIdType":"MINI_PROGRAM","subscribeAppId":null,"status":"SUCCESS","failReason":null},{"appId":"f32c62c1889f1b16b24720dac4c944be","appIdType":"MINI_PROGRAM","subscribeAppId":null,"status":"FAILED","failReason":"subappid信息错误，请检查修改后重试"}]}]},ts=<null>,sign=<null>,error=<null>,stringResult={
+     "code" : "00000",
+     "message" : "成功",
+     "status" : "ACCEPT",
+     "configResult" : "[{\"reportMerchantNo\":\"422386719\",\"tradeAuthDirList\":[],\"appIdList\":[{\"appId\":\"wx5f0e254d6e3749a2\",\"appIdType\":\"MINI_PROGRAM\",\"subscribeAppId\":null,\"status\":\"SUCCESS\",\"failReason\":null},{\"appId\":\"f32c62c1889f1b16b24720dac4c944be\",\"appIdType\":\"MINI_PROGRAM\",\"subscribeAppId\":null,\"status\":\"FAILED\",\"failReason\":\"subappid信息错误，请检查修改后重试\"}]}]"
+   },validSign=true]
+
+
+交易下单  单笔订单
+YopResponse[state=SUCCESS,requestId=EjSX3ztVSR6_WEa0voBizQ,result={code=OPR00000, message=成功, bizSystemNo=DS, parentMerchantNo=10085843316, merchantNo=10085843316, orderId=db84f715d3274b2ab9b76154fc976aea, uniqueOrderNo=1013202012230000001960859749, token=440A0654325338F60E59C1BB79BDF390CCB67FDDA3300DD19E45AB99E54358AA, orderAmount=0.01},ts=<null>,sign=<null>,error=<null>,stringResult={
+    "code" : "OPR00000",
+    "message" : "成功",
+    "bizSystemNo" : "DS",
+    "parentMerchantNo" : "10085843316",
+    "merchantNo" : "10085843316",
+    "orderId" : "db84f715d3274b2ab9b76154fc976aea",
+    "uniqueOrderNo" : "1013202012230000001960859749",
+    "token" : "440A0654325338F60E59C1BB79BDF390CCB67FDDA3300DD19E45AB99E54358AA",
+    "orderAmount" : 0.01
+  },validSign=true]
+
+聚合API收银台
+YopResponse[state=SUCCESS,requestId=m8U1MnHET7O7hxPzvUbshg,result={code=CAS00000, message=调用成功, payTool=MINI_PROGRAM, payType=WECHAT, merchantNo=10085834246, token=440A0654325338F60E59C1BB79BDF390CCB67FDDA3300DD19E45AB99E54358AA, resultType=json, resultData={"appId":"wx5f0e254d6e3749a2","timeStamp":"1608694060","nonceStr":"62001218fd6b44fba3db2317ee9f7813","package":"prepay_id=wx23112740465578241cfc02b073c9f30000","signType":"RSA","paySign":"rBkhq8LwjfGAqIA4W/lFZN18xHZ911IIeADJ/7enC1UlHDjWcHS0dxn+bucW6dwO6nEWlz4ujDJBj75v/5q79NFPc8f0wmAXZjolrs0ylWVFmwdOllNc0+rtLKCr6qQ1JRm3CwHCpXAb71xcHatDL5C+7hgUFtx1A49rUN1a7x66MMTe+UqeTcs2jfWIFz3hxuB/CR91Mvnt4FMXsS9EqcAHMZbB8AVRlMYYpw3AfiGI9abB0/B+B74qRfDrPgOqANjEBx7OBZq9KyIbe4b+Z1KvNHDT64gLhzmpcBLoKswzXa9kumdVKnX1iNiwsU5K+AAdmZDlzwtSV7VZyz/nBw=="}, extParamMap={"bankOrderNo":"5672305538201223"}},ts=<null>,sign=<null>,error=<null>,stringResult={
+    "code" : "CAS00000",
+    "message" : "调用成功",
+    "payTool" : "MINI_PROGRAM",
+    "payType" : "WECHAT",
+    "merchantNo" : "10085834246",
+    "token" : "440A0654325338F60E59C1BB79BDF390CCB67FDDA3300DD19E45AB99E54358AA",
+    "resultType" : "json",
+    "resultData" : "{\"appId\":\"wx5f0e254d6e3749a2\",\"timeStamp\":\"1608694060\",\"nonceStr\":\"62001218fd6b44fba3db2317ee9f7813\",\"package\":\"prepay_id=wx23112740465578241cfc02b073c9f30000\",\"signType\":\"RSA\",\"paySign\":\"rBkhq8LwjfGAqIA4W/lFZN18xHZ911IIeADJ/7enC1UlHDjWcHS0dxn+bucW6dwO6nEWlz4ujDJBj75v/5q79NFPc8f0wmAXZjolrs0ylWVFmwdOllNc0+rtLKCr6qQ1JRm3CwHCpXAb71xcHatDL5C+7hgUFtx1A49rUN1a7x66MMTe+UqeTcs2jfWIFz3hxuB/CR91Mvnt4FMXsS9EqcAHMZbB8AVRlMYYpw3AfiGI9abB0/B+B74qRfDrPgOqANjEBx7OBZq9KyIbe4b+Z1KvNHDT64gLhzmpcBLoKswzXa9kumdVKnX1iNiwsU5K+AAdmZDlzwtSV7VZyz/nBw==\"}",
+    "extParamMap" : "{\"bankOrderNo\":\"5672305538201223\"}"
+  },validSign=true]
+
+
+支付结果 回调地址
+{"channelOrderId":"4200000798202012237830802934","orderId":"db84f715d3274b2ab9b76154fc976aea","bankOrderId":"5672305538201223","paySuccessDate":"2020-12-23 11:29:18","channel":"WECHAT","payWay":"MINI_PROGRAM","uniqueOrderNo":"1013202012230000001960859749","orderAmount":"0.01","payAmount":"0.01","payerInfo":"{\"bankCardNo\":\"\",\"bankId\":\"CFT\",\"cardType\":\"CFT\",\"mobilePhoneNo\":\"\",\"userID\":\"ogqBq5Goe-EAINEvCt1I-LFsZJwk\"}","parentMerchantNo":"10085843316","merchantNo":"10085843316","status":"SUCCESS"}
+
+清算成功
+{"orderAmount":"0.01","csSuccessDate":"2020-12-23 11:29:19","orderId":"db84f715d3274b2ab9b76154fc976aea","merchantFee":"0.00","customerFee":"0.00","parentMerchantNo":"10085843316","uniqueOrderNo":"1013202012230000001960859749","feeType":"REAL_TIME","ypSettleAmount":"0.01","merchantNo":"10085843316","status":"SUCCESS"}
+
+
+申请分账
+YopResponse[state=SUCCESS,requestId=__KCgESrSU-M9rraMCCodg,result={code=OPR00000, message=成功, bizSystemNo=DS, parentMerchantNo=10085843316, merchantNo=10085843316, orderId=db84f715d3274b2ab9b76154fc976aea, uniqueOrderNo=1013202012230000001960859749, divideRequestId=fe037ece41aa48eb823bb1c186ed4d11, status=SUCCESS, divideDetail=[{"amount":0.01,"divideDetailDesc":"供应商结算","divideDetailNo":"1010202012230000001961286586","ledgerNo":"10085848604","ledgerType":"MERCHANT2MERCHANT"}]},ts=<null>,sign=<null>,error=<null>,stringResult={
+    "code" : "OPR00000",
+    "message" : "成功",
+    "bizSystemNo" : "DS",
+    "parentMerchantNo" : "10085843316",
+    "merchantNo" : "10085843316",
+    "orderId" : "db84f715d3274b2ab9b76154fc976aea",
+    "uniqueOrderNo" : "1013202012230000001960859749",
+    "divideRequestId" : "fe037ece41aa48eb823bb1c186ed4d11",
+    "status" : "SUCCESS",
+    "divideDetail" : "[{\"amount\":0.01,\"divideDetailDesc\":\"供应商结算\",\"divideDetailNo\":\"1010202012230000001961286586\",\"ledgerNo\":\"10085848604\",\"ledgerType\":\"MERCHANT2MERCHANT\"}]"
+  },validSign=true]
+
+
+查询分账结果
+YopResponse[state=SUCCESS,requestId=NHoU6xJmTSiiG0uE9bwOUQ,result={code=OPR00000, message=成功, parentMerchantNo=10085843316, merchantNo=10085843316, orderId=db84f715d3274b2ab9b76154fc976aea, divideRequestId=fe037ece41aa48eb823bb1c186ed4d11, uniqueOrderNo=1013202012230000001960859749, status=SUCCESS, divideDetail=[{"amount":0.01,"divideDetailDesc":"供应商结算","divideDetailNo":"1010202012230000001961286586","ledgerNo":"10085848604","ledgerType":"MERCHANT2MERCHANT"}], uniqueDivideNo=1003202012230000001961286590, divideType=FLAT_DIVIDE},ts=<null>,sign=<null>,error=<null>,stringResult={
+    "code" : "OPR00000",
+    "message" : "成功",
+    "parentMerchantNo" : "10085843316",
+    "merchantNo" : "10085843316",
+    "orderId" : "db84f715d3274b2ab9b76154fc976aea",
+    "divideRequestId" : "fe037ece41aa48eb823bb1c186ed4d11",
+    "uniqueOrderNo" : "1013202012230000001960859749",
+    "status" : "SUCCESS",
+    "divideDetail" : "[{\"amount\":0.01,\"divideDetailDesc\":\"供应商结算\",\"divideDetailNo\":\"1010202012230000001961286586\",\"ledgerNo\":\"10085848604\",\"ledgerType\":\"MERCHANT2MERCHANT\"}]",
+    "uniqueDivideNo" : "1003202012230000001961286590",
+    "divideType" : "FLAT_DIVIDE"
+  },validSign=true]
+
+完结分账
+YopResponse[state=SUCCESS,requestId=bnRJGnneSzuH-d-h6EVIRg,result={code=OPR00000, message=成功, bizSystemNo=DS, parentMerchantNo=10085843316, merchantNo=10085843316, orderId=b49c014f2502466293df44b48f4df269, uniqueOrderNo=1013202012230000001961351701, divideStatus=SUCCESS, divideRequestId=8a1ed3589da3464a90de045fb25d70c3, amount=0.01},ts=<null>,sign=<null>,error=<null>,stringResult={
+    "code" : "OPR00000",
+    "message" : "成功",
+    "bizSystemNo" : "DS",
+    "parentMerchantNo" : "10085843316",
+    "merchantNo" : "10085843316",
+    "orderId" : "b49c014f2502466293df44b48f4df269",
+    "uniqueOrderNo" : "1013202012230000001961351701",
+    "divideStatus" : "SUCCESS",
+    "divideRequestId" : "8a1ed3589da3464a90de045fb25d70c3",
+    "amount" : 0.01
+  },validSign=true]
+
+
+申请分账归还
+YopResponse[state=SUCCESS,requestId=s4q_KUqKS8iPOC6gzV7FtQ,result={code=OPR00000, message=成功, bizSystemNo=DS, parentMerchantNo=10085843316, merchantNo=10085843316, orderId=db84f715d3274b2ab9b76154fc976aea, uniqueOrderNo=1013202012230000001960859749, divideRequestId=fe037ece41aa48eb823bb1c186ed4d11, divideBackRequestId=987bd9e150f147a192f1ce3d5f93f9cd, uniqueDivideBackNo=1011202012230000001961389063, divideBackDetail=[{"amount":"0.01","divideBackReason":"不想分了，要退款","divideDetailNo":"1010202012230000001961286586"}], status=SUCCESS},ts=<null>,sign=<null>,error=<null>,stringResult={
+    "code" : "OPR00000",
+    "message" : "成功",
+    "bizSystemNo" : "DS",
+    "parentMerchantNo" : "10085843316",
+    "merchantNo" : "10085843316",
+    "orderId" : "db84f715d3274b2ab9b76154fc976aea",
+    "uniqueOrderNo" : "1013202012230000001960859749",
+    "divideRequestId" : "fe037ece41aa48eb823bb1c186ed4d11",
+    "divideBackRequestId" : "987bd9e150f147a192f1ce3d5f93f9cd",
+    "uniqueDivideBackNo" : "1011202012230000001961389063",
+    "divideBackDetail" : "[{\"amount\":\"0.01\",\"divideBackReason\":\"不想分了，要退款\",\"divideDetailNo\":\"1010202012230000001961286586\"}]",
+    "status" : "SUCCESS"
+  },validSign=true]
+
+
+查询分账资金归还结果
+YopResponse[state=SUCCESS,requestId=o_TQuCf7Qpa-2DlYDRTiXw,result={code=OPR00000, message=成功, bizSystemNo=DS, parentMerchantNo=10085843316, merchantNo=10085843316, orderId=db84f715d3274b2ab9b76154fc976aea, uniqueOrderNo=1013202012230000001960859749, divideRequestId=fe037ece41aa48eb823bb1c186ed4d11, divideBackRequestId=987bd9e150f147a192f1ce3d5f93f9cd, uniqueDivideBackNo=1011202012230000001961389063, divideBackDetail=[{"amount":"0.01","divideBackReason":"不想分了，要退款","divideDetailNo":"1010202012230000001961286586"}], status=SUCCESS},ts=<null>,sign=<null>,error=<null>,stringResult={
+    "code" : "OPR00000",
+    "message" : "成功",
+    "bizSystemNo" : "DS",
+    "parentMerchantNo" : "10085843316",
+    "merchantNo" : "10085843316",
+    "orderId" : "db84f715d3274b2ab9b76154fc976aea",
+    "uniqueOrderNo" : "1013202012230000001960859749",
+    "divideRequestId" : "fe037ece41aa48eb823bb1c186ed4d11",
+    "divideBackRequestId" : "987bd9e150f147a192f1ce3d5f93f9cd",
+    "uniqueDivideBackNo" : "1011202012230000001961389063",
+    "divideBackDetail" : "[{\"amount\":\"0.01\",\"divideBackReason\":\"不想分了，要退款\",\"divideDetailNo\":\"1010202012230000001961286586\"}]",
+    "status" : "SUCCESS"
+  },validSign=true]
+
+
+申请退款
+YopResponse[state=SUCCESS,requestId=P84aZcHmRvGHPyxe_qpTvw,result={code=OPR00000, message=成功, parentMerchantNo=10085843316, merchantNo=10085843316, orderId=db84f715d3274b2ab9b76154fc976aea, refundRequestId=a5703be0fd774ed8a1e3cd4721e6964d, uniqueRefundNo=1002202012230000001961430704, status=PROCESSING, refundAmount=0.01, residualAmount=0.00, description=想退款了, refundRequestDate=2020-12-23 15:45:08},ts=<null>,sign=<null>,error=<null>,stringResult={
+    "code" : "OPR00000",
+    "message" : "成功",
+    "parentMerchantNo" : "10085843316",
+    "merchantNo" : "10085843316",
+    "orderId" : "db84f715d3274b2ab9b76154fc976aea",
+    "refundRequestId" : "a5703be0fd774ed8a1e3cd4721e6964d",
+    "uniqueRefundNo" : "1002202012230000001961430704",
+    "status" : "PROCESSING",
+    "refundAmount" : "0.01",
+    "residualAmount" : "0.00",
+    "description" : "想退款了",
+    "refundRequestDate" : "2020-12-23 15:45:08"
+  },validSign=true]
+
+
+  申请退款 回调地址
+  {"disAccountAmount":"0.01","residualAmount":"0.00","orderId":"db84f715d3274b2ab9b76154fc976aea","bizSystemNo":"DS","description":"想退款了","uniqueOrderNo":"1013202012230000001960859749","refundRequestId":"a5703be0fd774ed8a1e3cd4721e6964d","refundSuccessDate":"2020-12-23 15:49:17","yeepayRefundPromotionDTOList":"[]","uniqueRefundNo":"1002202012230000001961430704","parentMerchantNo":"10085843316","refundRequestDate":"2020-12-23 15:45:08","merchantNo":"10085843316","refundAmount":"0.01","status":"SUCCESS"}
