@@ -1,4 +1,4 @@
-package com.hntyy.controller.yeepay;
+package com.hntyy.controller.yeepaytest;
 
 import com.yeepay.g3.sdk.yop.client.YopRequest;
 import com.yeepay.g3.sdk.yop.client.YopResponse;

@@ -46,14 +46,14 @@ public class NotifyUrlController {
         String response = request.getParameter("response");
         DigitalEnvelopeDTO dto = new DigitalEnvelopeDTO();
         dto.setCipherText(response);
+        //设置商户私钥
+        PrivateKey privateKey = InternalConfig.getISVPrivateKey(CertTypeEnum.RSA2048);
+        //设置易宝公钥
+        PublicKey publicKey = InternalConfig.getYopPublicKey(CertTypeEnum.RSA2048);
+        //解密验签
+        dto = DigitalEnvelopeUtils.decrypt(dto, privateKey, publicKey);
+        String plainText = dto.getPlainText();
         try {
-            //设置商户私钥
-            PrivateKey privateKey = InternalConfig.getISVPrivateKey(CertTypeEnum.RSA2048);
-            //设置易宝公钥
-            PublicKey publicKey = InternalConfig.getYopPublicKey(CertTypeEnum.RSA2048);
-            //解密验签
-            dto = DigitalEnvelopeUtils.decrypt(dto, privateKey, publicKey);
-            String plainText = dto.getPlainText();
             JSONObject jsonObject = JSON.parseObject(plainText);
             RegisterSaasMerchantResult registerSaasMerchantResult = new RegisterSaasMerchantResult();
             String requestNo = jsonObject.getString("requestNo");
@@ -84,6 +84,7 @@ public class NotifyUrlController {
             registerSaasMerchantResultService.insert(registerSaasMerchantResult);
             return "SUCCESS";
         } catch (Exception e) {
+            log.error("特约商户入网(企业/个体) 回调报错：param:{"+plainText+"}");
             e.printStackTrace();
         }
         return null;
@@ -95,14 +96,14 @@ public class NotifyUrlController {
         String response = request.getParameter("response");
         DigitalEnvelopeDTO dto = new DigitalEnvelopeDTO();
         dto.setCipherText(response);
+        //设置商户私钥
+        PrivateKey privateKey = InternalConfig.getISVPrivateKey(CertTypeEnum.RSA2048);
+        //设置易宝公钥
+        PublicKey publicKey = InternalConfig.getYopPublicKey(CertTypeEnum.RSA2048);
+        //解密验签
+        dto = DigitalEnvelopeUtils.decrypt(dto, privateKey, publicKey);
+        String plainText = dto.getPlainText();
         try {
-            //设置商户私钥
-            PrivateKey privateKey = InternalConfig.getISVPrivateKey(CertTypeEnum.RSA2048);
-            //设置易宝公钥
-            PublicKey publicKey = InternalConfig.getYopPublicKey(CertTypeEnum.RSA2048);
-            //解密验签
-            dto = DigitalEnvelopeUtils.decrypt(dto, privateKey, publicKey);
-            String plainText = dto.getPlainText();
             JSONObject jsonObject = JSON.parseObject(plainText);
             RegisterSaasMerchantResult registerSaasMerchantResult = new RegisterSaasMerchantResult();
             String requestNo = jsonObject.getString("requestNo");
@@ -133,24 +134,23 @@ public class NotifyUrlController {
             registerSaasMerchantResultService.insert(registerSaasMerchantResult);
             return "SUCCESS";
         } catch (Exception e) {
+            log.error("商户产品费率变更 回调报错：param:{"+plainText+"}");
             e.printStackTrace();
         }
         return null;
     }
 
-    /**
-     * 支付结果 回调地址
-     */
-    @RequestMapping("/payResult")
+    @ApiOperation(value="支付结果 回调地址")
+    @RequestMapping(value = "/payResult",method = RequestMethod.POST)
     public String payResult(HttpServletRequest request){
         String response = request.getParameter("response");
         DigitalEnvelopeDTO dto = new DigitalEnvelopeDTO();
         dto.setCipherText(response);
+        PrivateKey privateKey = InternalConfig.getISVPrivateKey(CertTypeEnum.RSA2048);
+        PublicKey publicKey = InternalConfig.getYopPublicKey(CertTypeEnum.RSA2048);
+        dto = DigitalEnvelopeUtils.decrypt(dto, privateKey, publicKey);
+        String plainText = dto.getPlainText();
         try {
-            PrivateKey privateKey = InternalConfig.getISVPrivateKey(CertTypeEnum.RSA2048);
-            PublicKey publicKey = InternalConfig.getYopPublicKey(CertTypeEnum.RSA2048);
-            dto = DigitalEnvelopeUtils.decrypt(dto, privateKey, publicKey);
-            String plainText = dto.getPlainText();
             JSONObject jsonObject = JSON.parseObject(plainText);
             String orderId = jsonObject.getString("orderId");
             String paySuccessDate = jsonObject.getString("paySuccessDate");
@@ -200,27 +200,26 @@ public class NotifyUrlController {
             payResultNotifyService.insert(payResultNotify);
             return "SUCCESS";
         } catch (Exception e) {
+            log.error("支付结果 回调报错：param:{"+plainText+"}");
             e.printStackTrace();
         }
         return null;
     }
 
-    /**
-     * 清算成功 回调地址
-     */
-    @RequestMapping("/reckoningSuccess")
+    @ApiOperation(value="清算成功 回调地址")
+    @RequestMapping(value = "/reckoningSuccess",method = RequestMethod.POST)
     public String reckoningSuccess(HttpServletRequest request){
         String response = request.getParameter("response");
         DigitalEnvelopeDTO dto = new DigitalEnvelopeDTO();
         dto.setCipherText(response);
+        //设置商户私钥
+        PrivateKey privateKey = InternalConfig.getISVPrivateKey(CertTypeEnum.RSA2048);
+        //设置易宝公钥
+        PublicKey publicKey = InternalConfig.getYopPublicKey(CertTypeEnum.RSA2048);
+        //解密验签
+        dto = DigitalEnvelopeUtils.decrypt(dto, privateKey, publicKey);
+        String plainText = dto.getPlainText();
         try {
-            //设置商户私钥
-            PrivateKey privateKey = InternalConfig.getISVPrivateKey(CertTypeEnum.RSA2048);
-            //设置易宝公钥
-            PublicKey publicKey = InternalConfig.getYopPublicKey(CertTypeEnum.RSA2048);
-            //解密验签
-            dto = DigitalEnvelopeUtils.decrypt(dto, privateKey, publicKey);
-            String plainText = dto.getPlainText();
             JSONObject jsonObject = JSON.parseObject(plainText);
             String parentMerchantNo = jsonObject.getString("parentMerchantNo");
             String merchantNo = jsonObject.getString("merchantNo");
@@ -262,16 +261,15 @@ public class NotifyUrlController {
             reckoningResultNotifyService.insert(reckoningResultNotify);
             return "SUCCESS";
         } catch (Exception e) {
+            log.error("清算成功 回调报错：param:{"+plainText+"}");
             e.printStackTrace();
         }
         return null;
     }
 
-    /**
-     * 申请退款 回调地址
-     */
-    @RequestMapping("/tradeRefund")
-    public void tradeRefund(HttpServletRequest request){
+    @ApiOperation(value="申请退款 回调地址")
+    @RequestMapping(value = "/tradeRefund",method = RequestMethod.POST)
+    public String tradeRefund(HttpServletRequest request){
         System.out.println("进入申请退款成功回调地址");
         String response = request.getParameter("response");
         DigitalEnvelopeDTO dto = new DigitalEnvelopeDTO();
@@ -288,6 +286,7 @@ public class NotifyUrlController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 
 }

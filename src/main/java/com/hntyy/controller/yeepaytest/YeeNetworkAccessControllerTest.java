@@ -1,4 +1,4 @@
-package com.hntyy.controller.yeepay;
+package com.hntyy.controller.yeepaytest;
 
 import com.alibaba.fastjson.JSON;
 import com.hntyy.bean.yeepay.result.QualUploadResult;

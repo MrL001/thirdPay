@@ -130,6 +130,7 @@ public class YeepayTransactionController {
         request.addParam("notifyUrl", tradeOrderParam.getNotifyUrl());
         request.addParam("memo", tradeOrderParam.getMemo());
         request.addParam("expiredTime", tradeOrderParam.getExpiredTime());
+        request.addParam("csUrl", tradeOrderParam.getCsUrl());
         try {
             YopResponse response = YopRsaClient.post(apiUri, request);
             Map result = (Map) response.getResult();
