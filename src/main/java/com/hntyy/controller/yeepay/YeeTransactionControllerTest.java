@@ -1,21 +1,8 @@
 package com.hntyy.controller.yeepay;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
-import com.hntyy.bean.yeepay.query.RegisterSaasMicroQuery;
-import com.hntyy.bean.yeepay.result.MerRegisterQueryResult;
-import com.hntyy.bean.yeepay.result.QualUploadResult;
-import com.hntyy.bean.yeepay.result.RegisterSaasMerchantResult;
 import com.yeepay.g3.sdk.yop.client.YopRequest;
 import com.yeepay.g3.sdk.yop.client.YopResponse;
 import com.yeepay.g3.sdk.yop.client.YopRsaClient;
-import com.yeepay.g3.sdk.yop.encrypt.CertTypeEnum;
-import com.yeepay.g3.sdk.yop.encrypt.DigestAlgEnum;
-import com.yeepay.g3.sdk.yop.encrypt.DigitalEnvelopeDTO;
-import com.yeepay.g3.sdk.yop.encrypt.RSA;
-import com.yeepay.g3.sdk.yop.utils.InternalConfig;
-
-import java.io.File;
 import java.io.IOException;
 import java.security.PrivateKey;
 import java.util.HashMap;

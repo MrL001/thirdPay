@@ -1,39 +1,26 @@
 package com.hntyy.bean.yeepay.result;
 
-import io.swagger.models.auth.In;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-/**
- * 子商户入网资质文件上传 返回实体
- */
 @Data
+@ApiModel(value = "资质文件上传返回结果")
 public class QualUploadResult {
 
-    /**
-     * 文件上传url
-     */
+    @ApiModelProperty(value = "文件上传url")
     private String fileUrl;
 
-    /**
-     * 文件类型 1.本地文件 2.远程文件
-     */
+    @ApiModelProperty(value = "文件类型 1.本地文件 2.远程文件")
     private Integer fileType;
 
-    /**
-     * 响应信息
-     */
+    @ApiModelProperty(value = "响应信息")
     private String returnMsg;
 
-    /**
-     * 响应编码
-     * REG00000: 请求成功
-     * REG30901：文件上传异常
-     */
+    @ApiModelProperty(value = "响应编码  REG00000: 请求成功,REG30901：文件上传异常")
     private String returnCode;
 
-    /**
-     * 商户资质存储url
-     */
+    @ApiModelProperty(value = "商户资质存储url")
     private String merQualUrl;
 
 }

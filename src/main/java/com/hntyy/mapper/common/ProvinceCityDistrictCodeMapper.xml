@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hntyy.mapper.common.ProvinceCityDistrictCodeMapper">
+
+    <select id="queryListByName" resultType="com.hntyy.bean.common.ProvinceCityDistrictCodeEntity">
+        select id id,province_code provinceCode,province_name provinceName,city_code cityCode,city_name cityName,district_code districtCode,district_name districtName from province_city_district_code where 1=1
+        <if test="name != null and name != ''">
+            AND (province_name LIKE CONCAT('%',#{name},'%') or city_name LIKE CONCAT('%',#{name},'%') or district_name LIKE CONCAT('%',#{name},'%'))
+        </if>
+        <if test="code != null and code != ''">
+            AND (province_code=#{code} or city_code=#{code} or district_code=#{code})
+        </if>
+    </select>
+
+</mapper>

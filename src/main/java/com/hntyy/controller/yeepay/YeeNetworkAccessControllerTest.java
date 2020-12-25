@@ -1,7 +1,6 @@
 package com.hntyy.controller.yeepay;
 
 import com.alibaba.fastjson.JSON;
-import com.hntyy.bean.yeepay.result.MerRegisterQueryResult;
 import com.hntyy.bean.yeepay.result.QualUploadResult;
 import com.hntyy.bean.yeepay.result.RegisterSaasMerchantResult;
 import com.yeepay.g3.sdk.yop.client.YopRequest;
@@ -37,7 +36,7 @@ public class YeeNetworkAccessControllerTest {
      * @param args
      * @throws IOException
      */
-    public static void main(String[] args) throws IOException {
+    public static void main1(String[] args) throws IOException {
         /* 上传文件*/
         //上传文件目前支持文件流，远程文件，本地文件3个模式，下面例子为本地模式
 
@@ -211,23 +210,15 @@ public class YeeNetworkAccessControllerTest {
      * 商户入网进度查询接口  成功
      * @param args
      */
-    public static void main5(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
         String apiUri = "/rest/v2.0/mer/register/query";
         YopRequest request = new YopRequest();
         // 入网请求号
-        String requestNo = "62d31dc6e6df40a8afcb611b17052f2a";
+        String requestNo = "TYSHRW20201221172313181842";
         request.addParam("requestNo", requestNo);
         YopResponse response = YopRsaClient.get(apiUri, request);
         Map result = (Map) response.getResult();
-        MerRegisterQueryResult merRegisterQueryResult = new MerRegisterQueryResult();
-        merRegisterQueryResult.setReturnCode((String) result.get("returnCode"));
-        merRegisterQueryResult.setReturnMsg((String) result.get("returnMsg"));
-        merRegisterQueryResult.setRequestNo((String) result.get("requestNo"));
-        merRegisterQueryResult.setApplicationNo((String) result.get("applicationNo"));
-        merRegisterQueryResult.setMerchantNo((String) result.get("merchantNo"));
-        merRegisterQueryResult.setApplicationStatus((String) result.get("applicationStatus"));
-        merRegisterQueryResult.setAuditOpinion((String) result.get("auditOpinion"));
-        System.out.println(JSON.toJSONString(merRegisterQueryResult));
+        System.out.println(JSON.toJSONString(result));
     }
 
     /**

@@ -1,26 +1,17 @@
 package com.hntyy.bean.yeepay.query;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-/**
- * 支付appId目录列表
- */
 @Data
+@ApiModel(value = "支付appId目录列表")
 public class PayAppIdList {
 
-    /**
-     * 支付appId
-     */
+    @ApiModelProperty(value = "支付appId")
     private String appId;
 
-    /**
-     * appId类型
-     */
+    @ApiModelProperty(value = "appId类型 OFFICIAL_ACCOUNT:公众号；MINI_PROGRAM:小程序")
     private String appIdType;
-
-    /**
-     * 推荐关注appId  选填
-     */
-    private String subscribeAppId;
 
 }

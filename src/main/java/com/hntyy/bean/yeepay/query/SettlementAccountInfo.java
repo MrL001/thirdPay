@@ -1,44 +1,23 @@
 package com.hntyy.bean.yeepay.query;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-/**
- * 结算账户信息  (企业/个体)
- */
 @Data
+@ApiModel(value = "结算账户信息  (企业/个体)")
 public class SettlementAccountInfo {
 
-    /**
-     * 结算方向  选填
-     * ACCOUNT(结算到支付账户)
-     * BANKCARD(结算到银行账户)
-     * 如果需要开通结算产品，该字段必传；如不需开通结算产品，该结算账户信息都可不传
-     */
+    @ApiModelProperty(value = "结算方向  ACCOUNT(结算到支付账户)，BANKCARD(结算到银行账户)")
     private String settlementDirection;
 
-    /**
-     * 银行账户类型  选填（结算方向为"结算到银行账户"时必填）
-     * 企业：对公账户/单位结算卡
-     * 个体户：对公账户/借记卡/存折
-     *
-     * UNIT_SETTLEMENT_CARD(单位结算卡)
-     * ENTERPRISE_ACCOUNT(对公账户)
-     * DEBIT_CARD(借记卡)
-     * PASSBOOK(存折)
-     */
+    @ApiModelProperty(value = "银行账户类型  选填（结算方向为‘结算到银行账户’时必填）  UNIT_SETTLEMENT_CARD(单位结算卡)，ENTERPRISE_ACCOUNT(对公账户)，DEBIT_CARD(借记卡)，PASSBOOK(存折)")
     private String bankAccountType;
 
-    /**
-     * 银行账户号码  选填（结算方向为"结算到银行账户"时必填）
-     * 对公账户/单位结算卡账户名称默认为商户签约名称
-     * 借记卡/存折账户名称默认为商户经营者/法人姓名。
-     */
+    @ApiModelProperty(value = "银行账户号码  结算方向为‘结算到银行账户’时必填")
     private String bankCardNo;
 
-    /**
-     * 银行账户开户总行编码  选填（结算方向为"结算到银行账户"时必填）
-     * 编码请参考易宝支付总行编码。
-     */
+    @ApiModelProperty(value = "银行账户开户总行编码  结算方向为‘结算到银行账户’时必填")
     private String bankCode;
 
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hntyy.mapper.yeepay.TradeOrderResultMapper">
+
+    <insert id="insert" parameterType="com.hntyy.bean.yeepay.result.TradeOrderResult" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO trade_order_result(`code`,`message`,`biz_system_no`,`parent_merchant_no`,`merchant_no`,`order_id`,`unique_orderno`,`token`,`order_amount`,`create_date`)
+        values (#{code},#{message},#{bizSystemNo},#{parentMerchantNo},#{merchantNo},#{orderId},#{uniqueOrderNo},#{token},#{orderAmount},NOW())
+    </insert>
+
+</mapper>

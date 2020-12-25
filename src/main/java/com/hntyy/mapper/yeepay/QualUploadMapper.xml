@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hntyy.mapper.yeepay.QualUploadMapper">
+
+    <insert id="insert" parameterType="com.hntyy.bean.yeepay.result.QualUploadResult" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO qual_upload(`file_url`,`file_type`,`return_msg`,`return_code`,`mer_qual_url`,`create_date`)
+        values (#{fileUrl},#{fileType},#{returnMsg},#{returnCode},#{merQualUrl},NOW())
+    </insert>
+
+</mapper>

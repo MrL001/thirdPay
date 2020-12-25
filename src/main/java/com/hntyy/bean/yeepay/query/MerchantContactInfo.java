@@ -1,36 +1,23 @@
 package com.hntyy.bean.yeepay.query;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-/**
- * 商户联系人信息  (企业/个体)
- */
 @Data
+@ApiModel(value = "商户联系人信息  (企业/个体)")
 public class MerchantContactInfo {
 
-    /**
-     * 商户联系人姓名
-     * 用于商户与易宝之间的业务联系，请按照真实联系人信息填写。
-     */
+    @ApiModelProperty(value = "商户联系人姓名")
     private String contactName;
 
-    /**
-     * 商户联系人证件号码 选填
-     * 用于商户与易宝之间的业务联系，请按照真实联系人信息填写。不传默认法人证件号。
-     */
+    @ApiModelProperty(value = "商户联系人证件号码")
     private String contactLicenceNo;
 
-    /**
-     * 商户联系人手机号
-     * 用于商户与易宝之间的业务联系，请按照真实联系人信息填写。
-     */
+    @ApiModelProperty(value = "商户联系人手机号")
     private String contactMobile;
 
-    /**
-     * 商户联系人邮箱
-     * 1.可能用于商户使用的产品/服务升级维护通知发送。
-     * 2.可能用于商户通道报备。
-     */
+    @ApiModelProperty(value = "商户联系人邮箱")
     private String contactEmail;
 
 }

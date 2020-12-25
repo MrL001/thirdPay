@@ -133,7 +133,21 @@ YopResponse[state=SUCCESS,requestId=m8U1MnHET7O7hxPzvUbshg,result={code=CAS00000
 
 
 支付结果 回调地址
-{"channelOrderId":"4200000798202012237830802934","orderId":"db84f715d3274b2ab9b76154fc976aea","bankOrderId":"5672305538201223","paySuccessDate":"2020-12-23 11:29:18","channel":"WECHAT","payWay":"MINI_PROGRAM","uniqueOrderNo":"1013202012230000001960859749","orderAmount":"0.01","payAmount":"0.01","payerInfo":"{\"bankCardNo\":\"\",\"bankId\":\"CFT\",\"cardType\":\"CFT\",\"mobilePhoneNo\":\"\",\"userID\":\"ogqBq5Goe-EAINEvCt1I-LFsZJwk\"}","parentMerchantNo":"10085843316","merchantNo":"10085843316","status":"SUCCESS"}
+{
+	"channelOrderId": "4200000798202012237830802934",
+	"orderId": "db84f715d3274b2ab9b76154fc976aea",
+	"bankOrderId": "5672305538201223",
+	"paySuccessDate": "2020-12-23 11:29:18",
+	"channel": "WECHAT",
+	"payWay": "MINI_PROGRAM",
+	"uniqueOrderNo": "1013202012230000001960859749",
+	"orderAmount": "0.01",
+	"payAmount": "0.01",
+	"payerInfo": "{\"bankCardNo\":\"\",\"bankId\":\"CFT\",\"cardType\":\"CFT\",\"mobilePhoneNo\":\"\",\"userID\":\"ogqBq5Goe-EAINEvCt1I-LFsZJwk\"}",
+	"parentMerchantNo": "10085843316",
+	"merchantNo": "10085843316",
+	"status": "SUCCESS"
+}
 
 清算成功
 {"orderAmount":"0.01","csSuccessDate":"2020-12-23 11:29:19","orderId":"db84f715d3274b2ab9b76154fc976aea","merchantFee":"0.00","customerFee":"0.00","parentMerchantNo":"10085843316","uniqueOrderNo":"1013202012230000001960859749","feeType":"REAL_TIME","ypSettleAmount":"0.01","merchantNo":"10085843316","status":"SUCCESS"}

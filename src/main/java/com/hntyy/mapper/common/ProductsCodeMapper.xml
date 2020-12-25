@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hntyy.mapper.common.ProductsCodeMapper">
+
+    <select id="queryListByName" resultType="com.hntyy.bean.common.ProductsCodeEntity">
+        select id id,product_name productName,product_code productCode from products_code where 1=1
+        <if test="name != null and name != ''">
+            AND product_name LIKE CONCAT('%',#{name},'%')
+        </if>
+        <if test="code != null and code != ''">
+            AND product_code=#{code}
+        </if>
+    </select>
+
+</mapper>

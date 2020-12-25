@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hntyy.mapper.yeepay.NccashierPayParamMapper">
+
+    <insert id="insert" parameterType="com.hntyy.bean.yeepay.query.NccashierPayParam" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO nccashier_pay_param(`pay_tool`,`pay_type`,`token`,`app_id`,`open_id`,`version`,`user_ip`,`report_fee`,`create_date`)
+        values (#{payTool},#{payType},#{token},#{appId},#{openId},#{version},#{userIp},#{reportFee},NOW())
+    </insert>
+
+</mapper>
