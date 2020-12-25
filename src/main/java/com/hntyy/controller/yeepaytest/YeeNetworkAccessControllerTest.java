@@ -210,7 +210,7 @@ public class YeeNetworkAccessControllerTest {
      * 商户入网进度查询接口  成功
      * @param args
      */
-    public static void main(String[] args) throws IOException {
+    public static void main5(String[] args) throws IOException {
         String apiUri = "/rest/v2.0/mer/register/query";
         YopRequest request = new YopRequest();
         // 入网请求号
@@ -245,7 +245,7 @@ public class YeeNetworkAccessControllerTest {
      * 商户产品费率查询 完成
      * @param args
      */
-    public static void main7(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
         String apiUri = "/rest/v2.0/mer/product/fee/query";
         YopRequest request = new YopRequest();
         request.addParam("parentMerchantNo", merchantNo);

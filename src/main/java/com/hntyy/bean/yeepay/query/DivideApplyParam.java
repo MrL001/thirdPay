@@ -25,7 +25,7 @@ public class DivideApplyParam {
     @ApiModelProperty(value = "商户分账请求号")
     private  String divideRequestId;
 
-    @ApiModelProperty(value = "支付方式 WECHAT、ALIPAY")
+    @ApiModelProperty(value = "分账详情,查询分账不用传")
     private List<DivideDetail> divideDetail;
 
 }

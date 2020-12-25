@@ -34,10 +34,10 @@ public class YeepayDivideApplyController {
     private String merchantNo = "10085843316";
 
     @Autowired
-    private WechatConfigAddService wechatConfigAddService;
+    private DivideApplyParamService divideApplyParamService;
 
     @Autowired
-    private WechatConfigAddResultService wechatConfigAddResultService;
+    private DivideApplyResultService divideApplyResultService;
 
     @Autowired
     private TradeOrderParamService tradeOrderParamService;
@@ -54,41 +54,62 @@ public class YeepayDivideApplyController {
     @ApiOperation(value="申请分账")
     @RequestMapping(value = "/divideApply",method = RequestMethod.POST)
     public DivideApplyResult divideApply(@RequestBody DivideApplyParam divideApplyParam){
-//        String apiUri = "/rest/v1.0/divide/apply";
-//        YopRequest request = new YopRequest();
-//        request.addParam("parentMerchantNo", tradeOrderParam.getParentMerchantNo());
-//        request.addParam("merchantNo", tradeOrderParam.getMerchantNo());
-//        request.addParam("orderId", tradeOrderParam.getOrderId());
-//        request.addParam("uniqueOrderNo", tradeOrderParam.getOrderAmount());
-//        request.addParam("divideRequestId", tradeOrderParam.getGoodsName());
-//        request.addParam("divideDetail", tradeOrderParam.getFundProcessType());
-//        try {
-//            YopResponse response = YopRsaClient.post(apiUri, request);
-//            Map result = (Map) response.getResult();
-//            TradeOrderResult tradeOrderResult = new TradeOrderResult();
-//            tradeOrderResult.setCode(result.get("code").toString());
-//            tradeOrderResult.setMessage(result.get("message").toString());
-//            tradeOrderResult.setBizSystemNo(result.get("bizSystemNo").toString());
-//            tradeOrderResult.setParentMerchantNo(result.get("parentMerchantNo").toString());
-//            tradeOrderResult.setMerchantNo(result.get("merchantNo").toString());
-//            tradeOrderResult.setOrderId(result.get("orderId").toString());
-//            tradeOrderResult.setUniqueOrderNo(result.get("uniqueOrderNo").toString());
-//            tradeOrderResult.setToken(result.get("token").toString());
-//            tradeOrderResult.setOrderAmount((BigDecimal) result.get("orderAmount"));
-//            // 请求成功保存数据
-//            if (!"OPR00000".equals(result.get("code"))){
-//                return tradeOrderResult;
-//            }
-//            // 存传参
-//            tradeOrderParamService.insert(tradeOrderParam);
-//            // 存返回结果
-//            tradeOrderParamResultService.insert(tradeOrderResult);
-//            return tradeOrderResult;
-//            // 处理返回值
-//        } catch (Exception e) {
-//            log.error("交易下单(生成预支付订单返回支付授权token)失败！param{"+tradeOrderParam+"}");
-//            e.printStackTrace();
-//        }
+        String apiUri = "/rest/v1.0/divide/apply";
+        YopRequest request = new YopRequest();
+        request.addParam("parentMerchantNo", divideApplyParam.getParentMerchantNo());
+        request.addParam("merchantNo", divideApplyParam.getMerchantNo());
+        request.addParam("orderId", divideApplyParam.getOrderId());
+        request.addParam("uniqueOrderNo", divideApplyParam.getUniqueOrderNo());
+        request.addParam("divideRequestId", divideApplyParam.getDivideRequestId());
+        request.addParam("divideDetail", JSONArray.toJSONString(divideApplyParam.getDivideDetail()));
+        try {
+            YopResponse response = YopRsaClient.post(apiUri, request);
+            Map result = (Map) response.getResult();
+            DivideApplyResult divideApplyResult = new DivideApplyResult();
+            divideApplyResult.setMessage(result.get("message").toString());
+            divideApplyResult.setDivideRequestId(result.get("divideRequestId").toString());
+            divideApplyResult.setUniqueOrderNo(result.get("uniqueOrderNo").toString());
+            divideApplyResult.setDivideDetail(result.get("divideDetail").toString());
+            divideApplyResult.setStatus(result.get("status").toString());
+            divideApplyResult.setOrderId(result.get("orderId").toString());
+            // 请求成功保存数据
+            if (!"OPR00000".equals(result.get("code"))){
+                return divideApplyResult;
+            }
+            // 存传参
+            DivideApplyParamBackup divideApplyParamBackup = new DivideApplyParamBackup();
+            BeanUtils.copyProperties(divideApplyParam,divideApplyParamBackup);
+            divideApplyParamBackup.setDivideDetailStr(divideApplyParam.getDivideDetail().toString());
+            divideApplyParamService.insert(divideApplyParamBackup);
+            // 存返回结果
+            divideApplyResultService.insert(divideApplyResult);
+            return divideApplyResult;
+            // 处理返回值
+        } catch (Exception e) {
+            log.error("申请分账失败！param：{"+divideApplyParam+"}");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @ApiOperation(value="查询分账结果")
+    @RequestMapping(value = "/MerRegisterQuery",method = RequestMethod.POST)
+    public Map MerRegisterQuery(@RequestBody DivideApplyParam divideApplyParam) {
+        String apiUri = "/rest/v1.0/divide/query";
+        YopRequest request = new YopRequest();
+        request.addParam("parentMerchantNo", divideApplyParam.getParentMerchantNo());
+        request.addParam("merchantNo", divideApplyParam.getMerchantNo());
+        request.addParam("divideRequestId", divideApplyParam.getDivideRequestId());
+        request.addParam("orderId", divideApplyParam.getOrderId());
+        request.addParam("uniqueOrderNo", divideApplyParam.getUniqueOrderNo());
+        try {
+            YopResponse response = YopRsaClient.get(apiUri, request);
+            Map result = (Map) response.getResult();
+            return result;
+        } catch (Exception e) {
+            log.error("查询分账结果失败！param:{"+divideApplyParam+"}");
+            e.printStackTrace();
+        }
         return null;
     }
 
