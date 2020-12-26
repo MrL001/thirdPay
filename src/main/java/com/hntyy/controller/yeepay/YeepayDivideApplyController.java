@@ -2,10 +2,7 @@ package com.hntyy.controller.yeepay;
 
 import com.alibaba.fastjson.JSONArray;
 import com.hntyy.bean.yeepay.query.*;
-import com.hntyy.bean.yeepay.result.DivideApplyResult;
-import com.hntyy.bean.yeepay.result.NccashierPayResult;
-import com.hntyy.bean.yeepay.result.TradeOrderResult;
-import com.hntyy.bean.yeepay.result.WechatConfigAddResult;
+import com.hntyy.bean.yeepay.result.*;
 import com.hntyy.service.yeepay.*;
 import com.yeepay.g3.sdk.yop.client.YopRequest;
 import com.yeepay.g3.sdk.yop.client.YopResponse;
@@ -40,16 +37,16 @@ public class YeepayDivideApplyController {
     private DivideApplyResultService divideApplyResultService;
 
     @Autowired
-    private TradeOrderParamService tradeOrderParamService;
+    private DivideCompleteParamService divideCompleteParamService;
 
     @Autowired
-    private TradeOrderParamResultService tradeOrderParamResultService;
+    private DivideCompleteResultService divideCompleteResultService;
 
     @Autowired
-    private NccashierPayResultService nccashierPayResultService;
+    private DivideBackParamService divideBackParamService;
 
     @Autowired
-    private NccashierPayParamService nccashierPayParamService;
+    private DivideBackResultService divideBackResultService;
 
     @ApiOperation(value="申请分账")
     @RequestMapping(value = "/divideApply",method = RequestMethod.POST)
@@ -108,6 +105,130 @@ public class YeepayDivideApplyController {
             return result;
         } catch (Exception e) {
             log.error("查询分账结果失败！param:{"+divideApplyParam+"}");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @ApiOperation(value="完结分账")
+    @RequestMapping(value = "/divideComplete",method = RequestMethod.POST)
+    public DivideCompleteResult divideComplete(@RequestBody DivideCompleteParam divideCompleteParam){
+        String apiUri = "/rest/v1.0/divide/complete";
+        YopRequest request = new YopRequest();
+        request.addParam("parentMerchantNo", divideCompleteParam.getParentMerchantNo());
+        request.addParam("merchantNo", divideCompleteParam.getMerchantNo());
+        request.addParam("orderId", divideCompleteParam.getOrderId());
+        request.addParam("uniqueOrderNo", divideCompleteParam.getUniqueOrderNo());
+        request.addParam("divideRequestId", divideCompleteParam.getDivideRequestId());
+        request.addParam("divideDetailDesc", JSONArray.toJSONString(divideCompleteParam.getDivideDetailDesc()));
+        try {
+            YopResponse response = YopRsaClient.post(apiUri, request);
+            Map result = (Map) response.getResult();
+            DivideCompleteResult divideCompleteResult = new DivideCompleteResult();
+            divideCompleteResult.setMessage(result.get("message").toString());
+            divideCompleteResult.setCode(result.get("code").toString());
+            if (result.get("amount") != null){
+                divideCompleteResult.setAmount(result.get("amount").toString());
+            }
+            if (result.get("divideStatus") != null){
+                divideCompleteResult.setDivideStatus(result.get("divideStatus").toString());
+            }
+            // 请求成功保存数据
+            if (!"OPR00000".equals(result.get("code"))){
+                return divideCompleteResult;
+            }
+            // 存传参
+            divideCompleteParamService.insert(divideCompleteParam);
+            // 存返回结果
+            divideCompleteResultService.insert(divideCompleteResult);
+            return divideCompleteResult;
+            // 处理返回值
+        } catch (Exception e) {
+            log.error("完结分账失败！param：{"+divideCompleteParam+"}");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @ApiOperation(value="申请分账资金归还")
+    @RequestMapping(value = "/divideBack",method = RequestMethod.POST)
+    public DivideBackResult divideBack(@RequestBody DivideBackParam divideBackParam){
+        String apiUri = "/rest/v1.0/divide/back";
+        YopRequest request = new YopRequest();
+        request.addParam("parentMerchantNo", divideBackParam.getParentMerchantNo());
+        request.addParam("merchantNo", divideBackParam.getMerchantNo());
+        request.addParam("divideBackRequestId", divideBackParam.getDivideBackRequestId());
+        request.addParam("divideRequestId", divideBackParam.getDivideRequestId());
+        request.addParam("orderId", divideBackParam.getOrderId());
+        request.addParam("uniqueOrderNo", divideBackParam.getUniqueOrderNo());
+        if (divideBackParam.getDivideBackDetail() != null && divideBackParam.getDivideBackDetail().size()>0){
+            request.addParam("divideBackDetail", JSONArray.toJSONString(divideBackParam.getDivideBackDetail()));
+        }
+        try {
+            YopResponse response = YopRsaClient.post(apiUri, request);
+            Map result = (Map) response.getResult();
+            DivideBackResult divideBackResult = new DivideBackResult();
+            divideBackResult.setCode(result.get("code") != null ? result.get("code").toString():null);
+            divideBackResult.setMessage(result.get("message") != null ? result.get("message").toString():null);
+            divideBackResult.setBizSystemNo(result.get("bizSystemNo") != null ? result.get("bizSystemNo").toString():null);
+            divideBackResult.setParentMerchantNo(result.get("parentMerchantNo") != null ? result.get("parentMerchantNo").toString():null);
+            divideBackResult.setMerchantNo(result.get("merchantNo") != null ? result.get("merchantNo").toString():null);
+            divideBackResult.setOrderId(result.get("orderId") != null ? result.get("orderId").toString():null);
+            divideBackResult.setUniqueOrderNo(result.get("uniqueOrderNo") !=null ? result.get("uniqueOrderNo").toString():null);
+            divideBackResult.setDivideRequestId(result.get("divideRequestId")!=null?result.get("divideRequestId").toString():null);
+            divideBackResult.setDivideBackRequestId(result.get("divideBackRequestId")!=null?result.get("divideBackRequestId").toString():null);
+            divideBackResult.setUniqueDivideBackNo(result.get("uniqueDivideBackNo")!=null?result.get("uniqueDivideBackNo").toString():null);
+            divideBackResult.setDivideBackDetail(result.get("divideBackDetail")!=null?result.get("divideBackDetail").toString():null);
+            divideBackResult.setStatus(result.get("status") != null ? result.get("status").toString():null);
+            // 请求成功保存数据
+            if (!"OPR00000".equals(result.get("code"))){
+                return divideBackResult;
+            }
+            // 存传参
+            DivideBackParamBackup divideBackParamBackup = new DivideBackParamBackup();
+            BeanUtils.copyProperties(divideBackParam,divideBackParamBackup);
+            divideBackParamBackup.setDivideBackDetailStr(divideBackParam.getDivideBackDetail().toString());
+            divideBackParamService.insert(divideBackParamBackup);
+            // 存返回结果
+            divideBackResultService.insert(divideBackResult);
+            return divideBackResult;
+            // 处理返回值
+        } catch (Exception e) {
+            log.error("申请分账资金归还失败！param：{"+divideBackParam+"}");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @ApiOperation(value="查询分账资金归还结果")
+    @RequestMapping(value = "/divideBackQuery",method = RequestMethod.POST)
+    public DivideBackResult divideBackQuery(@RequestBody DivideBackParamQuery divideBackParamQuery){
+        String apiUri = "/rest/v1.0/divide/back/query";
+        YopRequest request = new YopRequest();
+        request.addParam("parentMerchantNo", divideBackParamQuery.getParentMerchantNo());
+        request.addParam("merchantNo", divideBackParamQuery.getMerchantNo());
+        request.addParam("divideBackRequestId", divideBackParamQuery.getDivideBackRequestId());
+        request.addParam("orderId", divideBackParamQuery.getOrderId());
+        request.addParam("uniqueOrderNo", divideBackParamQuery.getUniqueOrderNo());
+        try {
+            YopResponse response = YopRsaClient.get(apiUri, request);
+            Map result = (Map) response.getResult();
+            DivideBackResult divideBackResult = new DivideBackResult();
+            divideBackResult.setCode(result.get("code") != null ? result.get("code").toString():null);
+            divideBackResult.setMessage(result.get("message") != null ? result.get("message").toString():null);
+            divideBackResult.setBizSystemNo(result.get("bizSystemNo") != null ? result.get("bizSystemNo").toString():null);
+            divideBackResult.setParentMerchantNo(result.get("parentMerchantNo") != null ? result.get("parentMerchantNo").toString():null);
+            divideBackResult.setMerchantNo(result.get("merchantNo") != null ? result.get("merchantNo").toString():null);
+            divideBackResult.setOrderId(result.get("orderId") != null ? result.get("orderId").toString():null);
+            divideBackResult.setUniqueOrderNo(result.get("uniqueOrderNo") !=null ? result.get("uniqueOrderNo").toString():null);
+            divideBackResult.setDivideRequestId(result.get("divideRequestId")!=null?result.get("divideRequestId").toString():null);
+            divideBackResult.setDivideBackRequestId(result.get("divideBackRequestId")!=null?result.get("divideBackRequestId").toString():null);
+            divideBackResult.setUniqueDivideBackNo(result.get("uniqueDivideBackNo")!=null?result.get("uniqueDivideBackNo").toString():null);
+            divideBackResult.setDivideBackDetail(result.get("divideBackDetail")!=null?result.get("divideBackDetail").toString():null);
+            divideBackResult.setStatus(result.get("status") != null ? result.get("status").toString():null);
+            return divideBackResult;
+        } catch (Exception e) {
+            log.error("申请分账资金归还失败！param：{"+divideBackParamQuery+"}");
             e.printStackTrace();
         }
         return null;

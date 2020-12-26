@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hntyy.mapper.yeepay.DivideCompleteResultMapper">
+
+    <insert id="insert" parameterType="com.hntyy.bean.yeepay.result.DivideCompleteResult" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO divide_complete_result(`code`,`message`,`divide_status`,`amount`,`create_date`)
+        values (#{code},#{message},#{divideStatus},#{amount},NOW())
+    </insert>
+
+</mapper>
