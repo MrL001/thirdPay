@@ -5,9 +5,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.hntyy.bean.yeepay.result.PayResultNotify;
 import com.hntyy.bean.yeepay.result.ReckoningResultNotify;
 import com.hntyy.bean.yeepay.result.RegisterSaasMerchantResult;
+import com.hntyy.bean.yeepay.result.TradeRefundNotifyResult;
 import com.hntyy.service.yeepay.PayResultNotifyService;
 import com.hntyy.service.yeepay.ReckoningResultNotifyService;
 import com.hntyy.service.yeepay.RegisterSaasMerchantResultService;
+import com.hntyy.service.yeepay.TradeRefundNotifyResultService;
 import com.yeepay.g3.sdk.yop.encrypt.CertTypeEnum;
 import com.yeepay.g3.sdk.yop.encrypt.DigitalEnvelopeDTO;
 import com.yeepay.g3.sdk.yop.utils.DigitalEnvelopeUtils;
@@ -39,6 +41,9 @@ public class NotifyUrlController {
 
     @Autowired
     private ReckoningResultNotifyService reckoningResultNotifyService;
+
+    @Autowired
+    private TradeRefundNotifyResultService tradeRefundNotifyResultService;
 
     @ApiOperation(value="特约商户入网(企业/个体) 回调地址")
     @RequestMapping(value = "/registerSaasMerchant",method = RequestMethod.POST)
@@ -270,20 +275,33 @@ public class NotifyUrlController {
     @ApiOperation(value="申请退款 回调地址")
     @RequestMapping(value = "/tradeRefund",method = RequestMethod.POST)
     public String tradeRefund(HttpServletRequest request){
-        System.out.println("进入申请退款成功回调地址");
         String response = request.getParameter("response");
         DigitalEnvelopeDTO dto = new DigitalEnvelopeDTO();
         dto.setCipherText(response);
+        //设置商户私钥
+        PrivateKey privateKey = InternalConfig.getISVPrivateKey(CertTypeEnum.RSA2048);
+        //设置易宝公钥
+        PublicKey publicKey = InternalConfig.getYopPublicKey(CertTypeEnum.RSA2048);
+        //解密验签
+        dto = DigitalEnvelopeUtils.decrypt(dto, privateKey, publicKey);
+        String plainText = dto.getPlainText();
         try {
-            //设置商户私钥
-            PrivateKey privateKey = InternalConfig.getISVPrivateKey(CertTypeEnum.RSA2048);
-            //设置易宝公钥
-            PublicKey publicKey = InternalConfig.getYopPublicKey(CertTypeEnum.RSA2048);
-            //解密验签
-            dto = DigitalEnvelopeUtils.decrypt(dto, privateKey, publicKey);
-            //打印回调数据
-            System.out.println(dto.getPlainText());
+            JSONObject jsonObject = JSON.parseObject(plainText);
+            TradeRefundNotifyResult tradeRefundNotifyResult = new TradeRefundNotifyResult();
+            tradeRefundNotifyResult.setParentMerchantNo(jsonObject.getString("parentMerchantNo") != null ? jsonObject.getString("parentMerchantNo"):null);
+            tradeRefundNotifyResult.setMerchantNo(jsonObject.getString("merchantNo") != null ? jsonObject.getString("merchantNo"):null);
+            tradeRefundNotifyResult.setOrderId(jsonObject.getString("orderId") != null ? jsonObject.getString("orderId"):null);
+            tradeRefundNotifyResult.setUniqueOrderNo(jsonObject.getString("uniqueOrderNo") != null ? jsonObject.getString("uniqueOrderNo"):null);
+            tradeRefundNotifyResult.setRefundAmount(jsonObject.getString("refundAmount") != null ? jsonObject.getString("refundAmount"):null);
+            tradeRefundNotifyResult.setUniqueRefundNo(jsonObject.getString("uniqueRefundNo") != null ? jsonObject.getString("uniqueRefundNo"):null);
+            tradeRefundNotifyResult.setRefundRequestDate(jsonObject.getString("refundRequestDate") != null ? jsonObject.getString("refundRequestDate"):null);
+            tradeRefundNotifyResult.setStatus(jsonObject.getString("status") != null ? jsonObject.getString("status"):null);
+            tradeRefundNotifyResult.setRefundSuccessDate(jsonObject.getString("refundSuccessDate") != null ? jsonObject.getString("refundSuccessDate"):null);
+            tradeRefundNotifyResult.setErrorMessage(jsonObject.getString("errorMessage") != null ? jsonObject.getString("errorMessage"):null);
+            tradeRefundNotifyResultService.insert(tradeRefundNotifyResult);
+            return "SUCCESS";
         } catch (Exception e) {
+            log.error("申请退款 回调报错：param:{"+plainText+"}");
             e.printStackTrace();
         }
         return null;

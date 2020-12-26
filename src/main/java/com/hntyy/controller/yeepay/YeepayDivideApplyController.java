@@ -192,7 +192,6 @@ public class YeepayDivideApplyController {
             // 存返回结果
             divideBackResultService.insert(divideBackResult);
             return divideBackResult;
-            // 处理返回值
         } catch (Exception e) {
             log.error("申请分账资金归还失败！param：{"+divideBackParam+"}");
             e.printStackTrace();

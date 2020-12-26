@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hntyy.mapper.yeepay.TradeRefundResultMapper">
+
+    <insert id="insert" parameterType="com.hntyy.bean.yeepay.result.TradeRefundResult" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO trade_refund_result(`code`,`message`,`parent_merchant_no`,`merchant_no`,`order_id`,`refund_request_id`,`unique_refund_no`,`status`,`refund_amount`,`refund_request_date`,`create_date`)
+        values (#{code},#{message},#{parentMerchantNo},#{merchantNo},#{orderId},#{refundRequestId},#{uniqueRefundNo},#{status},#{refundAmount},#{refundRequestDate},NOW())
+    </insert>
+
+</mapper>
