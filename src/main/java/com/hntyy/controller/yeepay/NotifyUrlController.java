@@ -61,30 +61,12 @@ public class NotifyUrlController {
         try {
             JSONObject jsonObject = JSON.parseObject(plainText);
             RegisterSaasMerchantResult registerSaasMerchantResult = new RegisterSaasMerchantResult();
-            String requestNo = jsonObject.getString("requestNo");
-            String applicationNo = jsonObject.getString("applicationNo");
-            String merchantNo = jsonObject.getString("merchantNo");
-            String applicationStatus = jsonObject.getString("applicationStatus");
-            String agreementSignUrl = jsonObject.getString("agreementSignUrl");
-            String auditOpinion = jsonObject.getString("auditOpinion");
-            if (requestNo != null && !"".equals(requestNo)){
-                registerSaasMerchantResult.setRequestNo(requestNo);
-            }
-            if (applicationNo != null && !"".equals(applicationNo)){
-                registerSaasMerchantResult.setApplicationNo(applicationNo);
-            }
-            if (merchantNo != null && !"".equals(merchantNo)){
-                registerSaasMerchantResult.setMerchantNo(merchantNo);
-            }
-            if (applicationStatus != null && !"".equals(applicationStatus)){
-                registerSaasMerchantResult.setApplicationStatus(applicationStatus);
-            }
-            if (agreementSignUrl != null && !"".equals(agreementSignUrl)){
-                registerSaasMerchantResult.setAgreementSignUrl(agreementSignUrl);
-            }
-            if (auditOpinion != null && !"".equals(auditOpinion)){
-                registerSaasMerchantResult.setAuditOpinion(auditOpinion);
-            }
+            registerSaasMerchantResult.setRequestNo(jsonObject.getString("requestNo") != null ? jsonObject.getString("requestNo"):null);
+            registerSaasMerchantResult.setApplicationNo(jsonObject.getString("applicationNo") != null ? jsonObject.getString("applicationNo"):null);
+            registerSaasMerchantResult.setMerchantNo(jsonObject.getString("merchantNo") != null ? jsonObject.getString("merchantNo"):null);
+            registerSaasMerchantResult.setApplicationStatus(jsonObject.getString("applicationStatus") != null ? jsonObject.getString("applicationStatus"):null);
+            registerSaasMerchantResult.setAgreementSignUrl(jsonObject.getString("agreementSignUrl") != null ? jsonObject.getString("agreementSignUrl"):null);
+            registerSaasMerchantResult.setAuditOpinion(jsonObject.getString("auditOpinion") != null ? jsonObject.getString("auditOpinion"):null);
             registerSaasMerchantResult.setType(4);
             registerSaasMerchantResultService.insert(registerSaasMerchantResult);
             return "SUCCESS";
@@ -111,30 +93,12 @@ public class NotifyUrlController {
         try {
             JSONObject jsonObject = JSON.parseObject(plainText);
             RegisterSaasMerchantResult registerSaasMerchantResult = new RegisterSaasMerchantResult();
-            String requestNo = jsonObject.getString("requestNo");
-            String applicationNo = jsonObject.getString("applicationNo");
-            String merchantNo = jsonObject.getString("merchantNo");
-            String applicationStatus = jsonObject.getString("applicationStatus");
-            String agreementSignUrl = jsonObject.getString("agreementSignUrl");
-            String auditOpinion = jsonObject.getString("auditOpinion");
-            if (requestNo != null && !"".equals(requestNo)){
-                registerSaasMerchantResult.setRequestNo(requestNo);
-            }
-            if (applicationNo != null && !"".equals(applicationNo)){
-                registerSaasMerchantResult.setApplicationNo(applicationNo);
-            }
-            if (merchantNo != null && !"".equals(merchantNo)){
-                registerSaasMerchantResult.setMerchantNo(merchantNo);
-            }
-            if (applicationStatus != null && !"".equals(applicationStatus)){
-                registerSaasMerchantResult.setApplicationStatus(applicationStatus);
-            }
-            if (agreementSignUrl != null && !"".equals(agreementSignUrl)){
-                registerSaasMerchantResult.setAgreementSignUrl(agreementSignUrl);
-            }
-            if (auditOpinion != null && !"".equals(auditOpinion)){
-                registerSaasMerchantResult.setAuditOpinion(auditOpinion);
-            }
+            registerSaasMerchantResult.setRequestNo(jsonObject.getString("requestNo") != null ? jsonObject.getString("requestNo"):null);
+            registerSaasMerchantResult.setApplicationNo(jsonObject.getString("applicationNo") != null ? jsonObject.getString("applicationNo"):null);
+            registerSaasMerchantResult.setMerchantNo(jsonObject.getString("merchantNo") != null ? jsonObject.getString("merchantNo"):null);
+            registerSaasMerchantResult.setApplicationStatus(jsonObject.getString("applicationStatus") != null ? jsonObject.getString("applicationStatus"):null);
+            registerSaasMerchantResult.setAgreementSignUrl(jsonObject.getString("agreementSignUrl") != null ? jsonObject.getString("agreementSignUrl"):null);
+            registerSaasMerchantResult.setAuditOpinion(jsonObject.getString("auditOpinion") != null ? jsonObject.getString("auditOpinion"):null);
             registerSaasMerchantResult.setType(5);
             registerSaasMerchantResultService.insert(registerSaasMerchantResult);
             return "SUCCESS";
@@ -157,51 +121,18 @@ public class NotifyUrlController {
         String plainText = dto.getPlainText();
         try {
             JSONObject jsonObject = JSON.parseObject(plainText);
-            String orderId = jsonObject.getString("orderId");
-            String paySuccessDate = jsonObject.getString("paySuccessDate");
-            String channel = jsonObject.getString("channel");
-            String payWay = jsonObject.getString("payWay");
-            String uniqueOrderNo = jsonObject.getString("uniqueOrderNo");
-            BigDecimal orderAmount = jsonObject.getBigDecimal("orderAmount");
-            BigDecimal payAmount = new BigDecimal(jsonObject.getString("payAmount"));
-            String payerInfo = jsonObject.getString("payerInfo");
-            String parentMerchantNo = jsonObject.getString("parentMerchantNo");
-            String merchantNo = jsonObject.getString("merchantNo");
-            String status = jsonObject.getString("status");
             PayResultNotify payResultNotify = new PayResultNotify();
-            if (orderId != null && !"".equals(orderId)){
-                payResultNotify.setOrderId(orderId);
-            }
-            if (paySuccessDate != null && !"".equals(paySuccessDate)){
-                payResultNotify.setPaySuccessDate(paySuccessDate);
-            }
-            if (channel != null && !"".equals(channel)){
-                payResultNotify.setChannel(channel);
-            }
-            if (payWay != null && !"".equals(payWay)){
-                payResultNotify.setPayWay(payWay);
-            }
-            if (uniqueOrderNo != null && !"".equals(uniqueOrderNo)){
-                payResultNotify.setUniqueOrderNo(uniqueOrderNo);
-            }
-            if (orderAmount != null){
-                payResultNotify.setOrderAmount(orderAmount);
-            }
-            if (payAmount != null){
-                payResultNotify.setPayAmount(payAmount);
-            }
-            if (payerInfo != null && !"".equals(payerInfo)){
-                payResultNotify.setPayerInfo(payerInfo);
-            }
-            if (parentMerchantNo != null && !"".equals(parentMerchantNo)){
-                payResultNotify.setParentMerchantNo(parentMerchantNo);
-            }
-            if (merchantNo != null && !"".equals(merchantNo)){
-                payResultNotify.setMerchantNo(merchantNo);
-            }
-            if (status != null && !"".equals(status)){
-                payResultNotify.setStatus(status);
-            }
+            payResultNotify.setOrderId(jsonObject.getString("orderId") != null ? jsonObject.getString("orderId"):null);
+            payResultNotify.setPaySuccessDate(jsonObject.getString("paySuccessDate") != null ? jsonObject.getString("paySuccessDate"):null);
+            payResultNotify.setChannel(jsonObject.getString("channel") != null ? jsonObject.getString("channel"):null);
+            payResultNotify.setPayWay(jsonObject.getString("payWay") != null ? jsonObject.getString("payWay"):null);
+            payResultNotify.setUniqueOrderNo(jsonObject.getString("uniqueOrderNo") != null ? jsonObject.getString("uniqueOrderNo"):null);
+            payResultNotify.setOrderAmount(jsonObject.getString("orderAmount") != null ? jsonObject.getBigDecimal("orderAmount"):null);
+            payResultNotify.setPayAmount(jsonObject.getString("payAmount") != null ? new BigDecimal(jsonObject.getString("payAmount")):null);
+            payResultNotify.setPayerInfo(jsonObject.getString("payerInfo") != null ? jsonObject.getString("payerInfo"):null);
+            payResultNotify.setParentMerchantNo(jsonObject.getString("parentMerchantNo") != null ? jsonObject.getString("parentMerchantNo"):null);
+            payResultNotify.setMerchantNo(jsonObject.getString("merchantNo") != null ? jsonObject.getString("merchantNo"):null);
+            payResultNotify.setStatus(jsonObject.getString("status") != null ? jsonObject.getString("status"):null);
             payResultNotifyService.insert(payResultNotify);
             return "SUCCESS";
         } catch (Exception e) {
@@ -226,43 +157,16 @@ public class NotifyUrlController {
         String plainText = dto.getPlainText();
         try {
             JSONObject jsonObject = JSON.parseObject(plainText);
-            String parentMerchantNo = jsonObject.getString("parentMerchantNo");
-            String merchantNo = jsonObject.getString("merchantNo");
-            String orderId = jsonObject.getString("orderId");
-            String uniqueOrderNo = jsonObject.getString("uniqueOrderNo");
-            String status = jsonObject.getString("status");
-            String orderAmount = jsonObject.getString("orderAmount");
-            String csSuccessDate = jsonObject.getString("csSuccessDate");
-            String merchantFee = jsonObject.getString("merchantFee");
-            String ypSettleAmount = jsonObject.getString("ypSettleAmount");
             ReckoningResultNotify reckoningResultNotify = new ReckoningResultNotify();
-            if (parentMerchantNo != null && !"".equals(parentMerchantNo)){
-                reckoningResultNotify.setParentMerchantNo(parentMerchantNo);
-            }
-            if (merchantNo != null && !"".equals(merchantNo)){
-                reckoningResultNotify.setMerchantNo(merchantNo);
-            }
-            if (orderId != null && !"".equals(orderId)){
-                reckoningResultNotify.setOrderId(orderId);
-            }
-            if (uniqueOrderNo != null && !"".equals(uniqueOrderNo)){
-                reckoningResultNotify.setUniqueOrderNo(uniqueOrderNo);
-            }
-            if (status != null && !"".equals(status)){
-                reckoningResultNotify.setStatus(uniqueOrderNo);
-            }
-            if (orderAmount != null && !"".equals(orderAmount)){
-                reckoningResultNotify.setOrderAmount(orderAmount);
-            }
-            if (csSuccessDate != null && !"".equals(csSuccessDate)){
-                reckoningResultNotify.setCsSuccessDate(csSuccessDate);
-            }
-            if (merchantFee != null && !"".equals(merchantFee)){
-                reckoningResultNotify.setMerchantFee(merchantFee);
-            }
-            if (ypSettleAmount != null && !"".equals(ypSettleAmount)){
-                reckoningResultNotify.setYpSettleAmount(ypSettleAmount);
-            }
+            reckoningResultNotify.setParentMerchantNo(jsonObject.getString("parentMerchantNo") != null ? jsonObject.getString("parentMerchantNo"):null);
+            reckoningResultNotify.setMerchantNo(jsonObject.getString("merchantNo") != null ? jsonObject.getString("merchantNo"):null);
+            reckoningResultNotify.setOrderId(jsonObject.getString("orderId") != null ? jsonObject.getString("orderId"):null);
+            reckoningResultNotify.setUniqueOrderNo(jsonObject.getString("uniqueOrderNo") != null ? jsonObject.getString("uniqueOrderNo"):null);
+            reckoningResultNotify.setStatus(jsonObject.getString("status") != null ? jsonObject.getString("status"):null);
+            reckoningResultNotify.setOrderAmount(jsonObject.getString("orderAmount") != null ? jsonObject.getString("orderAmount"):null);
+            reckoningResultNotify.setCsSuccessDate(jsonObject.getString("csSuccessDate") != null ? jsonObject.getString("csSuccessDate"):null);
+            reckoningResultNotify.setMerchantFee(jsonObject.getString("merchantFee") != null ? jsonObject.getString("merchantFee"):null);
+            reckoningResultNotify.setYpSettleAmount(jsonObject.getString("ypSettleAmount") != null ? jsonObject.getString("ypSettleAmount"):null);
             reckoningResultNotifyService.insert(reckoningResultNotify);
             return "SUCCESS";
         } catch (Exception e) {

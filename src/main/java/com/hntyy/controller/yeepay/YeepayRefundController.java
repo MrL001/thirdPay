@@ -1,10 +1,6 @@
 package com.hntyy.controller.yeepay;
 
-import com.alibaba.fastjson.JSONArray;
 import com.hntyy.bean.yeepay.query.*;
-import com.hntyy.bean.yeepay.result.DivideApplyResult;
-import com.hntyy.bean.yeepay.result.DivideBackResult;
-import com.hntyy.bean.yeepay.result.DivideCompleteResult;
 import com.hntyy.bean.yeepay.result.TradeRefundResult;
 import com.hntyy.service.yeepay.*;
 import com.yeepay.g3.sdk.yop.client.YopRequest;
@@ -13,13 +9,11 @@ import com.yeepay.g3.sdk.yop.client.YopRsaClient;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.Map;
 
 @Slf4j
@@ -28,29 +22,11 @@ import java.util.Map;
 @Api(tags = "退款相关接口")
 public class YeepayRefundController {
 
-    // sass服务商 商户编号
-    private static String parentMerchantNo = "10085834246";
-
-    // 平台商 商户编号
-    private String merchantNo = "10085843316";
-
     @Autowired
     private TradeRefundParamService divideApplyParamService;
 
     @Autowired
     private TradeRefundResultService divideApplyResultService;
-
-    @Autowired
-    private DivideCompleteParamService divideCompleteParamService;
-
-    @Autowired
-    private DivideCompleteResultService divideCompleteResultService;
-
-    @Autowired
-    private DivideBackParamService divideBackParamService;
-
-    @Autowired
-    private DivideBackResultService divideBackResultService;
 
     @ApiOperation(value="申请退款")
     @RequestMapping(value = "/tradeRefund",method = RequestMethod.POST)

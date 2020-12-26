@@ -24,12 +24,6 @@ import java.util.Map;
 @Api(tags = "分账相关接口")
 public class YeepayDivideApplyController {
 
-    // sass服务商 商户编号
-    private static String parentMerchantNo = "10085834246";
-
-    // 平台商 商户编号
-    private String merchantNo = "10085843316";
-
     @Autowired
     private DivideApplyParamService divideApplyParamService;
 
@@ -63,12 +57,12 @@ public class YeepayDivideApplyController {
             YopResponse response = YopRsaClient.post(apiUri, request);
             Map result = (Map) response.getResult();
             DivideApplyResult divideApplyResult = new DivideApplyResult();
-            divideApplyResult.setMessage(result.get("message").toString());
-            divideApplyResult.setDivideRequestId(result.get("divideRequestId").toString());
-            divideApplyResult.setUniqueOrderNo(result.get("uniqueOrderNo").toString());
-            divideApplyResult.setDivideDetail(result.get("divideDetail").toString());
-            divideApplyResult.setStatus(result.get("status").toString());
-            divideApplyResult.setOrderId(result.get("orderId").toString());
+            divideApplyResult.setMessage(result.get("message")!=null?result.get("message").toString():null );
+            divideApplyResult.setDivideRequestId(result.get("divideRequestId")!=null?result.get("divideRequestId").toString():null);
+            divideApplyResult.setUniqueOrderNo(result.get("uniqueOrderNo")!=null?result.get("uniqueOrderNo").toString():null);
+            divideApplyResult.setDivideDetail(result.get("divideDetail")!=null?result.get("divideDetail").toString():null);
+            divideApplyResult.setStatus(result.get("status")!=null?result.get("status").toString():null);
+            divideApplyResult.setOrderId(result.get("orderId")!=null?result.get("orderId").toString():null);
             // 请求成功保存数据
             if (!"OPR00000".equals(result.get("code"))){
                 return divideApplyResult;
@@ -125,14 +119,10 @@ public class YeepayDivideApplyController {
             YopResponse response = YopRsaClient.post(apiUri, request);
             Map result = (Map) response.getResult();
             DivideCompleteResult divideCompleteResult = new DivideCompleteResult();
-            divideCompleteResult.setMessage(result.get("message").toString());
-            divideCompleteResult.setCode(result.get("code").toString());
-            if (result.get("amount") != null){
-                divideCompleteResult.setAmount(result.get("amount").toString());
-            }
-            if (result.get("divideStatus") != null){
-                divideCompleteResult.setDivideStatus(result.get("divideStatus").toString());
-            }
+            divideCompleteResult.setMessage(result.get("message")!=null?result.get("message").toString():null);
+            divideCompleteResult.setCode(result.get("code")!=null?result.get("code").toString():null);
+            divideCompleteResult.setAmount(result.get("amount")!=null?result.get("amount").toString():null);
+            divideCompleteResult.setAmount(result.get("divideStatus")!=null?result.get("divideStatus").toString():null);
             // 请求成功保存数据
             if (!"OPR00000".equals(result.get("code"))){
                 return divideCompleteResult;

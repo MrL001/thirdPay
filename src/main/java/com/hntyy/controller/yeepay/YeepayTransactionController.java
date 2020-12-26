@@ -30,12 +30,6 @@ import java.util.Map;
 @Api(tags = "交易相关接口")
 public class YeepayTransactionController {
 
-    // sass服务商 商户编号
-    private static String parentMerchantNo = "10085834246";
-
-    // 平台商 商户编号
-    private String merchantNo = "10085843316";
-
     @Autowired
     private WechatConfigAddService wechatConfigAddService;
 
@@ -65,12 +59,12 @@ public class YeepayTransactionController {
         request.addParam("appIdList", JSONArray.toJSONString(wechatConfigAddParam.getPayAppIdList()));
         try {
             YopResponse response = YopRsaClient.post(apiUri, request);
-            Map<String,String> result = (Map) response.getResult();
+            Map result = (Map) response.getResult();
             WechatConfigAddResult wechatConfigAddResult = new WechatConfigAddResult();
-            wechatConfigAddResult.setCode(result.get("code"));
-            wechatConfigAddResult.setMessage(result.get("message"));
-            wechatConfigAddResult.setStatus(result.get("status"));
-            wechatConfigAddResult.setConfigResult(result.get("configResult"));
+            wechatConfigAddResult.setCode(result.get("code")!=null?result.get("code").toString():null);
+            wechatConfigAddResult.setMessage(result.get("message")!=null?result.get("message").toString():null);
+            wechatConfigAddResult.setStatus(result.get("status")!=null?result.get("status").toString():null);
+            wechatConfigAddResult.setConfigResult(result.get("configResult")!=null?result.get("configResult").toString():null);
             // 请求成功保存数据
             if (!"00000".equals(result.get("code"))){
                 return wechatConfigAddResult;
@@ -101,12 +95,12 @@ public class YeepayTransactionController {
         request.addParam("merchantNo", merchantNo);
         try {
             YopResponse response = YopRsaClient.get(apiUri, request);
-            Map<String,String> result = (Map) response.getResult();
+            Map result = (Map) response.getResult();
             WechatConfigAddResult wechatConfigAddResult = new WechatConfigAddResult();
-            wechatConfigAddResult.setCode(result.get("code"));
-            wechatConfigAddResult.setMessage(result.get("message"));
-            wechatConfigAddResult.setStatus(result.get("status"));
-            wechatConfigAddResult.setConfigResult(result.get("configResult"));
+            wechatConfigAddResult.setCode(result.get("code")!=null?result.get("code").toString():null);
+            wechatConfigAddResult.setMessage(result.get("message")!=null?result.get("message").toString():null);
+            wechatConfigAddResult.setStatus(result.get("status")!=null?result.get("status").toString():null);
+            wechatConfigAddResult.setConfigResult(result.get("configResult")!=null?result.get("configResult").toString():null);
             return wechatConfigAddResult;
             // 处理返回值
         } catch (Exception e) {
@@ -135,15 +129,15 @@ public class YeepayTransactionController {
             YopResponse response = YopRsaClient.post(apiUri, request);
             Map result = (Map) response.getResult();
             TradeOrderResult tradeOrderResult = new TradeOrderResult();
-            tradeOrderResult.setCode(result.get("code").toString());
-            tradeOrderResult.setMessage(result.get("message").toString());
-            tradeOrderResult.setBizSystemNo(result.get("bizSystemNo").toString());
-            tradeOrderResult.setParentMerchantNo(result.get("parentMerchantNo").toString());
-            tradeOrderResult.setMerchantNo(result.get("merchantNo").toString());
-            tradeOrderResult.setOrderId(result.get("orderId").toString());
-            tradeOrderResult.setUniqueOrderNo(result.get("uniqueOrderNo").toString());
-            tradeOrderResult.setToken(result.get("token").toString());
-            tradeOrderResult.setOrderAmount((BigDecimal) result.get("orderAmount"));
+            tradeOrderResult.setCode(result.get("code")!=null?result.get("code").toString():null);
+            tradeOrderResult.setMessage(result.get("message")!=null?result.get("message").toString():null);
+            tradeOrderResult.setBizSystemNo(result.get("bizSystemNo")!=null?result.get("bizSystemNo").toString():null);
+            tradeOrderResult.setParentMerchantNo(result.get("parentMerchantNo")!=null?result.get("parentMerchantNo").toString():null);
+            tradeOrderResult.setMerchantNo(result.get("merchantNo")!=null?result.get("merchantNo").toString():null);
+            tradeOrderResult.setOrderId(result.get("orderId")!=null?result.get("orderId").toString():null);
+            tradeOrderResult.setUniqueOrderNo(result.get("uniqueOrderNo")!=null?result.get("uniqueOrderNo").toString():null);
+            tradeOrderResult.setToken(result.get("token")!=null?result.get("token").toString():null);
+            tradeOrderResult.setOrderAmount(result.get("orderAmount")!=null?(BigDecimal)result.get("orderAmount"):null);
             // 请求成功保存数据
             if (!"OPR00000".equals(result.get("code"))){
                 return tradeOrderResult;
@@ -176,17 +170,17 @@ public class YeepayTransactionController {
         request.addParam("extParamMap", "{\"reportFee\":\""+nccashierPayParam.getReportFee()+"\"}");
         try {
             YopResponse response = YopRsaClient.post(apiUri, request);
-            Map<String,String> result = (Map) response.getResult();
+            Map result = (Map) response.getResult();
             NccashierPayResult nccashierPayResult = new NccashierPayResult();
-            nccashierPayResult.setCode(result.get("code"));
-            nccashierPayResult.setMessage(result.get("message"));
-            nccashierPayResult.setPayTool(result.get("payTool"));
-            nccashierPayResult.setPayType(result.get("payType"));
-            nccashierPayResult.setMerchantNo(result.get("merchantNo"));
-            nccashierPayResult.setToken(result.get("token"));
-            nccashierPayResult.setResultType(result.get("resultType"));
-            nccashierPayResult.setResultData(result.get("resultData"));
-            nccashierPayResult.setExtParamMap(result.get("extParamMap"));
+            nccashierPayResult.setCode(result.get("code")!=null?result.get("code").toString():null);
+            nccashierPayResult.setMessage(result.get("message")!=null?result.get("message").toString():null);
+            nccashierPayResult.setPayTool(result.get("payTool")!=null?result.get("payTool").toString():null);
+            nccashierPayResult.setPayType(result.get("payType")!=null?result.get("payType").toString():null);
+            nccashierPayResult.setMerchantNo(result.get("merchantNo")!=null?result.get("merchantNo").toString():null);
+            nccashierPayResult.setToken(result.get("token")!=null?result.get("token").toString():null);
+            nccashierPayResult.setResultType(result.get("resultType")!=null?result.get("resultType").toString():null);
+            nccashierPayResult.setResultData(result.get("resultData")!=null?result.get("resultData").toString():null);
+            nccashierPayResult.setExtParamMap(result.get("extParamMap")!=null?result.get("extParamMap").toString():null);
             // 请求成功保存数据
             if (!"CAS00000".equals(result.get("code"))){
                 return nccashierPayResult;

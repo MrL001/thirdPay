@@ -18,7 +18,6 @@ import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import java.io.File;
 import java.io.IOException;
@@ -63,9 +62,12 @@ public class YeepayNetworkAccessController {
             QualUploadResult qualUploadResult = new QualUploadResult();
             qualUploadResult.setFileUrl(fileUrl);
             qualUploadResult.setFileType(fileType);
-            qualUploadResult.setMerQualUrl((String) result.get("merQualUrl"));
-            qualUploadResult.setReturnCode((String) result.get("returnCode"));
-            qualUploadResult.setReturnMsg((String) result.get("returnMsg"));
+            qualUploadResult.setMerQualUrl(result.get("merQualUrl")!=null?result.get("merQualUrl").toString():null);
+            qualUploadResult.setReturnCode(result.get("returnCode")!=null?result.get("returnCode").toString():null);
+            qualUploadResult.setReturnMsg(result.get("returnMsg")!=null?result.get("returnMsg").toString():null);
+            if (!"REG00000".equals(result.get("returnCode"))){
+                return qualUploadResult;
+            }
             qualUploadService.insert(qualUploadResult);
             return qualUploadResult;
         } catch (IOException e) {
@@ -92,14 +94,14 @@ public class YeepayNetworkAccessController {
         request.addParam("productInfo", JSONArray.toJSONString(registerSaasMerchantParam.getProductInfo()));
         try {
             YopResponse response = YopRsaClient.post(apiUri, request);
-            Map<String,String> result = (Map) response.getResult();
+            Map result = (Map) response.getResult();
             RegisterSaasMerchantResult registerSaasMerchantResult = new RegisterSaasMerchantResult();
-            registerSaasMerchantResult.setReturnCode(result.get("returnCode"));
-            registerSaasMerchantResult.setReturnMsg(result.get("returnMsg"));
-            registerSaasMerchantResult.setRequestNo(result.get("requestNo"));
-            registerSaasMerchantResult.setApplicationNo(result.get("applicationNo"));
-            registerSaasMerchantResult.setMerchantNo(result.get("merchantNo"));
-            registerSaasMerchantResult.setApplicationStatus(result.get("applicationStatus"));
+            registerSaasMerchantResult.setReturnCode(result.get("returnCode")!=null?result.get("returnCode").toString():null);
+            registerSaasMerchantResult.setReturnMsg(result.get("returnMsg")!=null?result.get("returnMsg").toString():null);
+            registerSaasMerchantResult.setRequestNo(result.get("requestNo")!=null?result.get("requestNo").toString():null);
+            registerSaasMerchantResult.setApplicationNo(result.get("applicationNo")!=null?result.get("applicationNo").toString():null);
+            registerSaasMerchantResult.setMerchantNo(result.get("merchantNo")!=null?result.get("merchantNo").toString():null);
+            registerSaasMerchantResult.setApplicationStatus(result.get("applicationStatus")!=null?result.get("applicationStatus").toString():null);
             // 请求成功保存数据
             if (!"NIG00000".equals(result.get("returnCode"))){
                 return registerSaasMerchantResult;
@@ -143,14 +145,14 @@ public class YeepayNetworkAccessController {
         request.addParam("productInfo", JSONArray.toJSONString(registerSaasMicroParam.getProductInfo()));
         try {
             YopResponse response = YopRsaClient.post(apiUri, request);
-            Map<String,String> result = (Map) response.getResult();
+            Map result = (Map) response.getResult();
             RegisterSaasMerchantResult registerSaasMerchantResult = new RegisterSaasMerchantResult();
-            registerSaasMerchantResult.setReturnCode(result.get("returnCode"));
-            registerSaasMerchantResult.setReturnMsg(result.get("returnMsg"));
-            registerSaasMerchantResult.setRequestNo(result.get("requestNo"));
-            registerSaasMerchantResult.setApplicationNo(result.get("applicationNo"));
-            registerSaasMerchantResult.setMerchantNo(result.get("merchantNo"));
-            registerSaasMerchantResult.setApplicationStatus(result.get("applicationStatus"));
+            registerSaasMerchantResult.setReturnCode(result.get("returnCode")!=null?result.get("returnCode").toString():null);
+            registerSaasMerchantResult.setReturnMsg(result.get("returnMsg")!=null?result.get("returnMsg").toString():null);
+            registerSaasMerchantResult.setRequestNo(result.get("requestNo")!=null?result.get("requestNo").toString():null);
+            registerSaasMerchantResult.setApplicationNo(result.get("applicationNo")!=null?result.get("applicationNo").toString():null);
+            registerSaasMerchantResult.setMerchantNo(result.get("merchantNo")!=null?result.get("merchantNo").toString():null);
+            registerSaasMerchantResult.setApplicationStatus(result.get("applicationStatus")!=null?result.get("applicationStatus").toString():null);
             // 请求成功保存数据
             if (!"NIG00000".equals(result.get("returnCode"))){
                 return registerSaasMerchantResult;
@@ -180,22 +182,14 @@ public class YeepayNetworkAccessController {
 
     @ApiOperation(value="商户入网进度查询")
     @RequestMapping(value = "/MerRegisterQuery",method = RequestMethod.GET)
-    public RegisterSaasMerchantResult MerRegisterQuery(@ApiParam(value = "入网请求号",required = true)@RequestParam(name = "requestNo") String requestNo) {
+    public Map MerRegisterQuery(@ApiParam(value = "入网请求号",required = true)@RequestParam(name = "requestNo") String requestNo) {
         String apiUri = "/rest/v2.0/mer/register/query";
         YopRequest request = new YopRequest();
         request.addParam("requestNo", requestNo);
         try {
             YopResponse response = YopRsaClient.get(apiUri, request);
             Map result = (Map) response.getResult();
-            RegisterSaasMerchantResult merRegisterQueryResult = new RegisterSaasMerchantResult();
-            merRegisterQueryResult.setReturnCode((String) result.get("returnCode"));
-            merRegisterQueryResult.setReturnMsg((String) result.get("returnMsg"));
-            merRegisterQueryResult.setRequestNo((String) result.get("requestNo"));
-            merRegisterQueryResult.setApplicationNo((String) result.get("applicationNo"));
-            merRegisterQueryResult.setMerchantNo((String) result.get("merchantNo"));
-            merRegisterQueryResult.setApplicationStatus((String) result.get("applicationStatus"));
-            merRegisterQueryResult.setAuditOpinion((String) result.get("auditOpinion"));
-            return merRegisterQueryResult;
+            return result;
         } catch (IOException e) {
             log.error("商户入网进度查询失败！param:{"+requestNo+"}");
             e.printStackTrace();
@@ -217,12 +211,12 @@ public class YeepayNetworkAccessController {
             YopResponse response = YopRsaClient.post(apiUri, request);
             Map result = (Map) response.getResult();
             RegisterSaasMerchantResult merRegisterQueryResult = new RegisterSaasMerchantResult();
-            merRegisterQueryResult.setReturnCode((String) result.get("returnCode"));
-            merRegisterQueryResult.setReturnMsg((String) result.get("returnMsg"));
-            merRegisterQueryResult.setRequestNo((String) result.get("requestNo"));
-            merRegisterQueryResult.setApplicationNo((String) result.get("applicationNo"));
-            merRegisterQueryResult.setMerchantNo((String) result.get("merchantNo"));
-            merRegisterQueryResult.setApplicationStatus((String) result.get("applicationStatus"));
+            merRegisterQueryResult.setReturnCode(result.get("returnCode")!=null?result.get("returnCode").toString():null);
+            merRegisterQueryResult.setReturnMsg(result.get("returnMsg")!=null?result.get("returnMsg").toString():null);
+            merRegisterQueryResult.setRequestNo(result.get("requestNo")!=null?result.get("requestNo").toString():null);
+            merRegisterQueryResult.setApplicationNo(result.get("applicationNo")!=null?result.get("applicationNo").toString():null);
+            merRegisterQueryResult.setMerchantNo(result.get("merchantNo")!=null?result.get("merchantNo").toString():null);
+            merRegisterQueryResult.setApplicationStatus(result.get("applicationStatus")!=null?result.get("applicationStatus").toString():null);
             // 请求成功保存数据
             if (!"NIG00000".equals(result.get("returnCode"))){
                 return merRegisterQueryResult;
