@@ -228,7 +228,7 @@ public class YeepayDivideApplyController {
             divideBackResult.setStatus(result.get("status") != null ? result.get("status").toString():null);
             return divideBackResult;
         } catch (Exception e) {
-            log.error("申请分账资金归还失败！param：{"+divideBackParamQuery+"}");
+            log.error("查询分账资金归还结果失败！param：{"+divideBackParamQuery+"}");
             e.printStackTrace();
         }
         return null;
