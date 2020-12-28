@@ -104,7 +104,7 @@ public class YeepayDivideApplyController {
         return null;
     }
 
-    @ApiOperation(value="完结分账")
+    @ApiOperation(value="完结分账（扣除的手续费需要做完结分账处理）")
     @RequestMapping(value = "/divideComplete",method = RequestMethod.POST)
     public DivideCompleteResult divideComplete(@RequestBody DivideCompleteParam divideCompleteParam){
         String apiUri = "/rest/v1.0/divide/complete";
@@ -122,7 +122,7 @@ public class YeepayDivideApplyController {
             divideCompleteResult.setMessage(result.get("message")!=null?result.get("message").toString():null);
             divideCompleteResult.setCode(result.get("code")!=null?result.get("code").toString():null);
             divideCompleteResult.setAmount(result.get("amount")!=null?result.get("amount").toString():null);
-            divideCompleteResult.setAmount(result.get("divideStatus")!=null?result.get("divideStatus").toString():null);
+            divideCompleteResult.setDivideStatus(result.get("divideStatus")!=null?result.get("divideStatus").toString():null);
             // 请求成功保存数据
             if (!"OPR00000".equals(result.get("code"))){
                 return divideCompleteResult;
@@ -223,5 +223,31 @@ public class YeepayDivideApplyController {
         return null;
     }
 
+    @ApiOperation(value="待结算金额查询(当前账户可用金额)")
+    @RequestMapping(value = "/settleBalanceQuery",method = RequestMethod.POST)
+    public SettleBalanceQueryResult settleBalanceQuery(@RequestBody SettleBalanceQueryParam settleBalanceQueryParam) {
+        String apiUri = "/rest/v1.0/settle/balance/query";
+        YopRequest request = new YopRequest();
+        request.addParam("parentMerchantNo", settleBalanceQueryParam.getParentMerchantNo());
+        request.addParam("merchantNo", settleBalanceQueryParam.getMerchantNo());
+        request.addParam("operatePeriod", settleBalanceQueryParam.getOperatePeriod());
+        request.addParam("endTime", settleBalanceQueryParam.getEndTime());
+        try {
+            YopResponse response = YopRsaClient.get(apiUri, request);
+            Map result = (Map) response.getResult();
+            SettleBalanceQueryResult settleBalanceQueryResult = new SettleBalanceQueryResult();
+            settleBalanceQueryResult.setCode(result.get("code") != null ? result.get("code").toString():null);
+            settleBalanceQueryResult.setMessage(result.get("message") != null ? result.get("message").toString():null);
+            settleBalanceQueryResult.setParentMerchantNo(result.get("parentMerchantNo") != null ? result.get("parentMerchantNo").toString():null);
+            settleBalanceQueryResult.setMerchantNo(result.get("merchantNo") != null ? result.get("merchantNo").toString():null);
+            settleBalanceQueryResult.setSettlableAmount(result.get("settlableAmount") != null ? result.get("settlableAmount").toString():null);
+            settleBalanceQueryResult.setUnsettledAmount(result.get("unsettledAmount") != null ? result.get("unsettledAmount").toString():null);
+            return settleBalanceQueryResult;
+        } catch (Exception e) {
+            log.error("查询退款结果失败！param:{"+settleBalanceQueryParam+"}");
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }
