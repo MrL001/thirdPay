@@ -244,7 +244,7 @@ public class YeepayNetworkAccessController {
     @ApiOperation(value="商户产品费率查询")
     @RequestMapping(value = "/MerProductFeeQuery",method = RequestMethod.GET)
     public Map MerProductFeeQuery(@ApiParam(value = "平台商商户编号",required = true)@RequestParam(name = "parentMerchantNo") String parentMerchantNo,
-                                                         @ApiParam(value = "需要查询产品的商户编号",required = true)@RequestParam(name = "merchantNo") String merchantNo) {
+                                  @ApiParam(value = "需要查询产品的商户编号",required = true)@RequestParam(name = "merchantNo") String merchantNo) {
         String apiUri = "/rest/v2.0/mer/product/fee/query";
         YopRequest request = new YopRequest();
         request.addParam("parentMerchantNo", parentMerchantNo);
