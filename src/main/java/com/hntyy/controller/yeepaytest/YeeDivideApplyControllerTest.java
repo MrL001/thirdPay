@@ -161,7 +161,7 @@ public class YeeDivideApplyControllerTest {
      * @param args
      * @throws IOException
      */
-    public static void main(String[] args) throws IOException {
+    public static void main8(String[] args) throws IOException {
         String apiUri = "/rest/v1.0/trade/refund/query";
         YopRequest request = new YopRequest();
         request.addParam("parentMerchantNo", merchantNo);

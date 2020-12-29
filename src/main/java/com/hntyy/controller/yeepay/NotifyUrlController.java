@@ -2,14 +2,13 @@ package com.hntyy.controller.yeepay;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.hntyy.bean.yeepay.query.NotifyUrlEntity;
 import com.hntyy.bean.yeepay.result.PayResultNotify;
 import com.hntyy.bean.yeepay.result.ReckoningResultNotify;
 import com.hntyy.bean.yeepay.result.RegisterSaasMerchantResult;
 import com.hntyy.bean.yeepay.result.TradeRefundNotifyResult;
-import com.hntyy.service.yeepay.PayResultNotifyService;
-import com.hntyy.service.yeepay.ReckoningResultNotifyService;
-import com.hntyy.service.yeepay.RegisterSaasMerchantResultService;
-import com.hntyy.service.yeepay.TradeRefundNotifyResultService;
+import com.hntyy.enums.NotifyUrlEnum;
+import com.hntyy.service.yeepay.*;
 import com.yeepay.g3.sdk.yop.encrypt.CertTypeEnum;
 import com.yeepay.g3.sdk.yop.encrypt.DigitalEnvelopeDTO;
 import com.yeepay.g3.sdk.yop.utils.DigitalEnvelopeUtils;
@@ -45,7 +44,10 @@ public class NotifyUrlController {
     @Autowired
     private TradeRefundNotifyResultService tradeRefundNotifyResultService;
 
-    @ApiOperation(value="特约商户入网(企业/个体) 回调地址")
+    @Autowired
+    private NotifyUrlService notifyUrlService;
+
+    @ApiOperation(value="特约商户入网 回调地址")
     @RequestMapping(value = "/registerSaasMerchant",method = RequestMethod.POST)
     public String registerSaasMerchant(HttpServletRequest request){
         String response = request.getParameter("response");
@@ -69,6 +71,15 @@ public class NotifyUrlController {
             registerSaasMerchantResult.setAuditOpinion(jsonObject.getString("auditOpinion") != null ? jsonObject.getString("auditOpinion"):null);
             registerSaasMerchantResult.setType(4);
             registerSaasMerchantResultService.insert(registerSaasMerchantResult);
+            // 取最新地址回调
+            NotifyUrlEntity notifyUrl = notifyUrlService.getNotifyUrl(registerSaasMerchantResult.getRequestNo(), NotifyUrlEnum.TYSHRW.getKey());
+            if (notifyUrl != null){
+                String paramUrl = notifyUrl.getParamUrl();
+                // 做处理
+                if (paramUrl != null && !"".equals(paramUrl)){
+                    // ...............
+                }
+            }
             return "SUCCESS";
         } catch (Exception e) {
             log.error("特约商户入网(企业/个体) 回调报错：param:{"+plainText+"}");
@@ -101,6 +112,15 @@ public class NotifyUrlController {
             registerSaasMerchantResult.setAuditOpinion(jsonObject.getString("auditOpinion") != null ? jsonObject.getString("auditOpinion"):null);
             registerSaasMerchantResult.setType(5);
             registerSaasMerchantResultService.insert(registerSaasMerchantResult);
+            // 取最新地址回调
+            NotifyUrlEntity notifyUrl = notifyUrlService.getNotifyUrl(registerSaasMerchantResult.getRequestNo(), NotifyUrlEnum.SHCPFLBG.getKey());
+            if (notifyUrl != null){
+                String paramUrl = notifyUrl.getParamUrl();
+                // 做处理
+                if (paramUrl != null && !"".equals(paramUrl)){
+                    // ...............
+                }
+            }
             return "SUCCESS";
         } catch (Exception e) {
             log.error("商户产品费率变更 回调报错：param:{"+plainText+"}");
@@ -134,6 +154,15 @@ public class NotifyUrlController {
             payResultNotify.setMerchantNo(jsonObject.getString("merchantNo") != null ? jsonObject.getString("merchantNo"):null);
             payResultNotify.setStatus(jsonObject.getString("status") != null ? jsonObject.getString("status"):null);
             payResultNotifyService.insert(payResultNotify);
+            // 取最新地址回调
+            NotifyUrlEntity notifyUrl = notifyUrlService.getNotifyUrl(payResultNotify.getOrderId(), NotifyUrlEnum.ZFJG.getKey());
+            if (notifyUrl != null){
+                String paramUrl = notifyUrl.getParamUrl();
+                // 做处理
+                if (paramUrl != null && !"".equals(paramUrl)){
+                    // ...............
+                }
+            }
             return "SUCCESS";
         } catch (Exception e) {
             log.error("支付结果 回调报错：param:{"+plainText+"}");
@@ -168,6 +197,15 @@ public class NotifyUrlController {
             reckoningResultNotify.setMerchantFee(jsonObject.getString("merchantFee") != null ? jsonObject.getString("merchantFee"):null);
             reckoningResultNotify.setYpSettleAmount(jsonObject.getString("ypSettleAmount") != null ? jsonObject.getString("ypSettleAmount"):null);
             reckoningResultNotifyService.insert(reckoningResultNotify);
+            // 取最新地址回调
+            NotifyUrlEntity notifyUrl = notifyUrlService.getNotifyUrl(reckoningResultNotify.getOrderId(), NotifyUrlEnum.QSCG.getKey());
+            if (notifyUrl != null){
+                String paramUrl = notifyUrl.getParamUrl();
+                // 做处理
+                if (paramUrl != null && !"".equals(paramUrl)){
+                    // ...............
+                }
+            }
             return "SUCCESS";
         } catch (Exception e) {
             log.error("清算成功 回调报错：param:{"+plainText+"}");
@@ -203,6 +241,15 @@ public class NotifyUrlController {
             tradeRefundNotifyResult.setRefundSuccessDate(jsonObject.getString("refundSuccessDate") != null ? jsonObject.getString("refundSuccessDate"):null);
             tradeRefundNotifyResult.setErrorMessage(jsonObject.getString("errorMessage") != null ? jsonObject.getString("errorMessage"):null);
             tradeRefundNotifyResultService.insert(tradeRefundNotifyResult);
+            // 取最新地址回调
+            NotifyUrlEntity notifyUrl = notifyUrlService.getNotifyUrl(tradeRefundNotifyResult.getOrderId(), NotifyUrlEnum.SQTK.getKey());
+            if (notifyUrl != null){
+                String paramUrl = notifyUrl.getParamUrl();
+                // 做处理
+                if (paramUrl != null && !"".equals(paramUrl)){
+                    // ...............
+                }
+            }
             return "SUCCESS";
         } catch (Exception e) {
             log.error("申请退款 回调报错：param:{"+plainText+"}");

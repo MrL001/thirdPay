@@ -104,7 +104,7 @@ public class YeepayDivideApplyController {
         return null;
     }
 
-    @ApiOperation(value="完结分账（扣除的手续费需要做完结分账处理）")
+    @ApiOperation(value="完结分账（未分完的必须调此接口钱才能入账）")
     @RequestMapping(value = "/divideComplete",method = RequestMethod.POST)
     public DivideCompleteResult divideComplete(@RequestBody DivideCompleteParam divideCompleteParam){
         String apiUri = "/rest/v1.0/divide/complete";

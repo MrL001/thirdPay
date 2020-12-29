@@ -2,6 +2,7 @@ package com.hntyy.controller.yeepay;
 
 import com.hntyy.bean.yeepay.query.*;
 import com.hntyy.bean.yeepay.result.TradeRefundResult;
+import com.hntyy.enums.NotifyUrlEnum;
 import com.hntyy.service.yeepay.*;
 import com.yeepay.g3.sdk.yop.client.YopRequest;
 import com.yeepay.g3.sdk.yop.client.YopResponse;
@@ -28,6 +29,9 @@ public class YeepayRefundController {
     @Autowired
     private TradeRefundResultService divideApplyResultService;
 
+    @Autowired
+    private NotifyUrlService notifyUrlService;
+
     @ApiOperation(value="申请退款")
     @RequestMapping(value = "/tradeRefund",method = RequestMethod.POST)
     public TradeRefundResult tradeRefund(@RequestBody TradeRefundParam tradeRefundParam){
@@ -40,7 +44,7 @@ public class YeepayRefundController {
         request.addParam("uniqueOrderNo", tradeRefundParam.getUniqueOrderNo());
         request.addParam("refundAmount", tradeRefundParam.getRefundAmount());
         request.addParam("description", tradeRefundParam.getDescription());
-        request.addParam("notifyUrl", tradeRefundParam.getNotifyUrl());
+        request.addParam("notifyUrl", NotifyUrlEnum.SQTK.getValue());
         try {
             YopResponse response = YopRsaClient.post(apiUri, request);
             Map result = (Map) response.getResult();
@@ -59,6 +63,13 @@ public class YeepayRefundController {
             if (!"OPR00000".equals(result.get("code"))){
                 return tradeRefundResult;
             }
+            // 存地址
+            NotifyUrlEntity notifyUrlEntity = new NotifyUrlEntity();
+            notifyUrlEntity.setLocalUrl(NotifyUrlEnum.SQTK.getValue());
+            notifyUrlEntity.setParamUrl(tradeRefundParam.getNotifyUrl() != null && !"".equals(tradeRefundParam.getNotifyUrl()) ? tradeRefundParam.getNotifyUrl():null);
+            notifyUrlEntity.setRequestId(tradeRefundParam.getOrderId() != null && !"".equals(tradeRefundParam.getOrderId()) ? tradeRefundParam.getOrderId():null);
+            notifyUrlEntity.setType(NotifyUrlEnum.SQTK.getKey());
+            notifyUrlService.insert(notifyUrlEntity);
             // 存传参
             divideApplyParamService.insert(tradeRefundParam);
             // 存返回结果

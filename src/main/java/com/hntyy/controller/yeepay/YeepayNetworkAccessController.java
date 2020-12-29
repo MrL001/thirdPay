@@ -2,12 +2,11 @@ package com.hntyy.controller.yeepay;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.hntyy.bean.yeepay.query.MerProductFeeModifyParam;
-import com.hntyy.bean.yeepay.query.RegisterSaasMerchantParam;
-import com.hntyy.bean.yeepay.query.RegisterSaasMerchantParamBackup;
-import com.hntyy.bean.yeepay.query.RegisterSaasMicroParam;
+import com.hntyy.bean.yeepay.query.*;
 import com.hntyy.bean.yeepay.result.QualUploadResult;
 import com.hntyy.bean.yeepay.result.RegisterSaasMerchantResult;
+import com.hntyy.enums.NotifyUrlEnum;
+import com.hntyy.service.yeepay.NotifyUrlService;
 import com.hntyy.service.yeepay.QualUploadService;
 import com.hntyy.service.yeepay.RegisterSaasMerchantResultService;
 import com.hntyy.service.yeepay.RegisterSaasMerchantService;
@@ -39,6 +38,8 @@ public class YeepayNetworkAccessController {
     @Autowired
     private RegisterSaasMerchantResultService registerSaasMerchantResultService;
 
+    @Autowired
+    private NotifyUrlService notifyUrlService;
 
     @ApiOperation(value="资质文件上传")
     @RequestMapping(value = "/qualUpload",method = RequestMethod.GET)
@@ -90,7 +91,7 @@ public class YeepayNetworkAccessController {
         request.addParam("merchantContactInfo", JSON.toJSONString(registerSaasMerchantParam.getMerchantContactInfo()));
         request.addParam("businessAddressInfo", JSON.toJSONString(registerSaasMerchantParam.getBusinessAddressInfo()));
         request.addParam("settlementAccountInfo", JSON.toJSONString(registerSaasMerchantParam.getSettlementAccountInfo()));
-        request.addParam("notifyUrl", registerSaasMerchantParam.getNotifyUrl());
+        request.addParam("notifyUrl", NotifyUrlEnum.TYSHRW.getValue());
         request.addParam("productInfo", JSONArray.toJSONString(registerSaasMerchantParam.getProductInfo()));
         try {
             YopResponse response = YopRsaClient.post(apiUri, request);
@@ -106,6 +107,13 @@ public class YeepayNetworkAccessController {
             if (!"NIG00000".equals(result.get("returnCode"))){
                 return registerSaasMerchantResult;
             }
+            // 存地址
+            NotifyUrlEntity notifyUrlEntity = new NotifyUrlEntity();
+            notifyUrlEntity.setLocalUrl(NotifyUrlEnum.TYSHRW.getValue());
+            notifyUrlEntity.setParamUrl(registerSaasMerchantParam.getNotifyUrl() != null && !"".equals(registerSaasMerchantParam.getNotifyUrl()) ? registerSaasMerchantParam.getNotifyUrl():null);
+            notifyUrlEntity.setRequestId(registerSaasMerchantParam.getRequestNo() != null && !"".equals(registerSaasMerchantParam.getRequestNo()) ? registerSaasMerchantParam.getRequestNo():null);
+            notifyUrlEntity.setType(NotifyUrlEnum.TYSHRW.getKey());
+            notifyUrlService.insert(notifyUrlEntity);
             // 存传参
             RegisterSaasMerchantParamBackup registerSaasMerchantParamBackup = new RegisterSaasMerchantParamBackup();
             BeanUtils.copyProperties(registerSaasMerchantParam,registerSaasMerchantParamBackup);
@@ -141,7 +149,7 @@ public class YeepayNetworkAccessController {
         request.addParam("merchantCorporationInfo", JSON.toJSONString(registerSaasMicroParam.getMerchantCorporationInfo()));
         request.addParam("businessAddressInfo", JSON.toJSONString(registerSaasMicroParam.getBusinessAddressInfo()));
         request.addParam("accountInfo", JSON.toJSONString(registerSaasMicroParam.getAccountInfo()));
-        request.addParam("notifyUrl", registerSaasMicroParam.getNotifyUrl());
+        request.addParam("notifyUrl", NotifyUrlEnum.TYSHRW.getValue());
         request.addParam("productInfo", JSONArray.toJSONString(registerSaasMicroParam.getProductInfo()));
         try {
             YopResponse response = YopRsaClient.post(apiUri, request);
@@ -157,6 +165,13 @@ public class YeepayNetworkAccessController {
             if (!"NIG00000".equals(result.get("returnCode"))){
                 return registerSaasMerchantResult;
             }
+            // 存地址
+            NotifyUrlEntity notifyUrlEntity = new NotifyUrlEntity();
+            notifyUrlEntity.setLocalUrl(NotifyUrlEnum.TYSHRW.getValue());
+            notifyUrlEntity.setParamUrl(registerSaasMicroParam.getNotifyUrl() != null && !"".equals(registerSaasMicroParam.getNotifyUrl()) ? registerSaasMicroParam.getNotifyUrl():null);
+            notifyUrlEntity.setRequestId(registerSaasMicroParam.getRequestNo() != null && !"".equals(registerSaasMicroParam.getRequestNo()) ? registerSaasMicroParam.getRequestNo():null);
+            notifyUrlEntity.setType(NotifyUrlEnum.TYSHRW.getKey());
+            notifyUrlService.insert(notifyUrlEntity);
             // 存传参
             RegisterSaasMerchantParamBackup registerSaasMerchantParamBackup = new RegisterSaasMerchantParamBackup();
             BeanUtils.copyProperties(registerSaasMicroParam,registerSaasMerchantParamBackup);
@@ -205,7 +220,7 @@ public class YeepayNetworkAccessController {
         request.addParam("requestNo", merProductFeeModifyParam.getRequestNo());
         request.addParam("parentMerchantNo", merProductFeeModifyParam.getParentMerchantNo());
         request.addParam("merchantNo", merProductFeeModifyParam.getMerchantNo());
-        request.addParam("notifyUrl", merProductFeeModifyParam.getNotifyUrl());
+        request.addParam("notifyUrl", NotifyUrlEnum.SHCPFLBG.getValue());
         request.addParam("productInfo", JSONArray.toJSONString(merProductFeeModifyParam.getProductInfo()));
         try {
             YopResponse response = YopRsaClient.post(apiUri, request);
@@ -221,6 +236,13 @@ public class YeepayNetworkAccessController {
             if (!"NIG00000".equals(result.get("returnCode"))){
                 return merRegisterQueryResult;
             }
+            // 存地址
+            NotifyUrlEntity notifyUrlEntity = new NotifyUrlEntity();
+            notifyUrlEntity.setLocalUrl(NotifyUrlEnum.SHCPFLBG.getValue());
+            notifyUrlEntity.setParamUrl(merProductFeeModifyParam.getNotifyUrl() != null && !"".equals(merProductFeeModifyParam.getNotifyUrl()) ? merProductFeeModifyParam.getNotifyUrl():null);
+            notifyUrlEntity.setRequestId(merProductFeeModifyParam.getRequestNo() != null && !"".equals(merProductFeeModifyParam.getRequestNo()) ? merProductFeeModifyParam.getRequestNo():null);
+            notifyUrlEntity.setType(NotifyUrlEnum.SHCPFLBG.getKey());
+            notifyUrlService.insert(notifyUrlEntity);
             // 存传参
             RegisterSaasMerchantParamBackup registerSaasMerchantParamBackup = new RegisterSaasMerchantParamBackup();
             registerSaasMerchantParamBackup.setRequestNo(merProductFeeModifyParam.getRequestNo());

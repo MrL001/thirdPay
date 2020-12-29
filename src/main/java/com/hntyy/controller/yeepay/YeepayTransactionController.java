@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hntyy.bean.yeepay.query.*;
 import com.hntyy.bean.yeepay.result.*;
+import com.hntyy.enums.NotifyUrlEnum;
 import com.hntyy.service.yeepay.*;
 import com.yeepay.g3.sdk.yop.client.YopRequest;
 import com.yeepay.g3.sdk.yop.client.YopResponse;
@@ -47,6 +48,9 @@ public class YeepayTransactionController {
 
     @Autowired
     private NccashierPayParamService nccashierPayParamService;
+
+    @Autowired
+    private NotifyUrlService notifyUrlService;
 
 
     @ApiOperation(value="公众号配置(支付宝不需要配置)")
@@ -121,10 +125,10 @@ public class YeepayTransactionController {
         request.addParam("orderAmount", tradeOrderParam.getOrderAmount());
         request.addParam("goodsName", tradeOrderParam.getGoodsName());
         request.addParam("fundProcessType", tradeOrderParam.getFundProcessType());
-        request.addParam("notifyUrl", tradeOrderParam.getNotifyUrl());
+        request.addParam("notifyUrl", NotifyUrlEnum.ZFJG.getValue());
         request.addParam("memo", tradeOrderParam.getMemo());
         request.addParam("expiredTime", tradeOrderParam.getExpiredTime());
-        request.addParam("csUrl", tradeOrderParam.getCsUrl());
+        request.addParam("csUrl", NotifyUrlEnum.QSCG.getValue());
         try {
             YopResponse response = YopRsaClient.post(apiUri, request);
             Map result = (Map) response.getResult();
@@ -142,6 +146,19 @@ public class YeepayTransactionController {
             if (!"OPR00000".equals(result.get("code"))){
                 return tradeOrderResult;
             }
+            // 存地址
+            NotifyUrlEntity notifyUrlEntity = new NotifyUrlEntity();
+            notifyUrlEntity.setLocalUrl(NotifyUrlEnum.ZFJG.getValue());
+            notifyUrlEntity.setParamUrl(tradeOrderParam.getNotifyUrl() != null && !"".equals(tradeOrderParam.getNotifyUrl()) ? tradeOrderParam.getNotifyUrl():null);
+            notifyUrlEntity.setRequestId(tradeOrderParam.getOrderId() != null && !"".equals(tradeOrderParam.getOrderId()) ? tradeOrderParam.getOrderId():null);
+            notifyUrlEntity.setType(NotifyUrlEnum.ZFJG.getKey());
+            notifyUrlService.insert(notifyUrlEntity);
+            NotifyUrlEntity notifyUrlEntity2 = new NotifyUrlEntity();
+            notifyUrlEntity2.setLocalUrl(NotifyUrlEnum.QSCG.getValue());
+            notifyUrlEntity2.setParamUrl(tradeOrderParam.getCsUrl() != null && !"".equals(tradeOrderParam.getCsUrl()) ? tradeOrderParam.getCsUrl():null);
+            notifyUrlEntity2.setRequestId(tradeOrderParam.getOrderId() != null && !"".equals(tradeOrderParam.getOrderId()) ? tradeOrderParam.getOrderId():null);
+            notifyUrlEntity2.setType(NotifyUrlEnum.QSCG.getKey());
+            notifyUrlService.insert(notifyUrlEntity2);
             // 存传参
             tradeOrderParamService.insert(tradeOrderParam);
             // 存返回结果
