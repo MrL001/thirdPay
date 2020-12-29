@@ -1,26 +1,15 @@
 package com.hntyy.controller.common;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.alipay.api.AlipayClient;
-import com.alipay.api.DefaultAlipayClient;
-import com.alipay.api.request.AlipaySystemOauthTokenRequest;
-import com.alipay.api.response.AlipaySystemOauthTokenResponse;
-import com.hntyy.common.HttpClientUtil;
 import com.hntyy.common.WeChatUtil;
-import com.yeepay.shade.org.apache.http.client.ResponseHandler;
-import com.yeepay.shade.org.apache.http.client.methods.HttpGet;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import sun.net.www.http.HttpClient;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
