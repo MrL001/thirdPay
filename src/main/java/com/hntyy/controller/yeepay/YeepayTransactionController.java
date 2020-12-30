@@ -116,7 +116,7 @@ public class YeepayTransactionController {
 
     @ApiOperation(value="交易下单(生成预支付订单返回支付授权token)")
     @RequestMapping(value = "/tradeOrder",method = RequestMethod.POST)
-    public TradeOrderResult tradeOrder(@RequestBody TradeOrderParam tradeOrderParam){
+    public TradeOrderResult tradeOrder(@ModelAttribute TradeOrderParam tradeOrderParam){
         String apiUri = "/rest/v1.0/trade/order";
         YopRequest request = new YopRequest();
         request.addParam("parentMerchantNo", tradeOrderParam.getParentMerchantNo());
