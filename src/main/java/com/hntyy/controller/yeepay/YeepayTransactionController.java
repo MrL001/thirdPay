@@ -81,7 +81,6 @@ public class YeepayTransactionController {
             // 存返回结果
             wechatConfigAddResultService.insert(wechatConfigAddResult);
             return wechatConfigAddResult;
-            // 处理返回值
         } catch (Exception e) {
             log.error("公众号配置失败！param{"+wechatConfigAddParam+"}");
             e.printStackTrace();
@@ -106,7 +105,6 @@ public class YeepayTransactionController {
             wechatConfigAddResult.setStatus(result.get("status")!=null?result.get("status").toString():null);
             wechatConfigAddResult.setConfigResult(result.get("configResult")!=null?result.get("configResult").toString():null);
             return wechatConfigAddResult;
-            // 处理返回值
         } catch (Exception e) {
             log.error("公众号配置查询失败！parentMerchantNo:"+parentMerchantNo+",merchantNo:"+merchantNo);
             e.printStackTrace();
@@ -164,7 +162,6 @@ public class YeepayTransactionController {
             // 存返回结果
             tradeOrderParamResultService.insert(tradeOrderResult);
             return tradeOrderResult;
-            // 处理返回值
         } catch (Exception e) {
             log.error("交易下单(生成预支付订单返回支付授权token)失败！param{"+tradeOrderParam+"}");
             e.printStackTrace();
@@ -207,9 +204,27 @@ public class YeepayTransactionController {
             // 存返回结果
             nccashierPayResultService.insert(nccashierPayResult);
             return nccashierPayResult;
-            // 处理返回值
         } catch (Exception e) {
             log.error("聚合API收银台失败！param{"+nccashierPayParam+"}");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @ApiOperation(value="查询订单")
+    @RequestMapping(value = "/nccashierPay",method = RequestMethod.GET)
+    public Map queryOrder(String parentMerchantNo,String merchantNo,String orderId){
+        String apiUri = "/rest/v1.0/trade/order/query";
+        YopRequest request = new YopRequest();
+        request.addParam("parentMerchantNo", parentMerchantNo);
+        request.addParam("merchantNo", merchantNo);
+        request.addParam("orderId", orderId);
+        try {
+            YopResponse response = YopRsaClient.get(apiUri, request);
+            Map result = (Map) response.getResult();
+            return result;
+        } catch (Exception e) {
+            log.error("查询订单失败！parentMerchantNo:"+parentMerchantNo+",merchantNo:"+merchantNo+",orderId:"+orderId);
             e.printStackTrace();
         }
         return null;

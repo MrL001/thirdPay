@@ -9,4 +9,10 @@
         values (#{code},#{message},#{parentMerchantNo},#{merchantNo},#{orderId},#{refundRequestId},#{uniqueRefundNo},#{status},#{refundAmount},#{refundRequestDate},NOW())
     </insert>
 
+    <select id="getTradeRefundResultByOrderId" resultType="com.hntyy.bean.yeepay.result.TradeRefundResult">
+        SELECT code code,message message,parent_merchant_no parentMerchantNo,merchant_no merchantNo,order_id orderId,refund_request_id refundRequestId,unique_refund_no uniqueRefundNo,
+        status status,refund_amount refundAmount,refund_request_date refundRequestDate
+        FROM trade_refund_result where order_id=#{orderId}
+    </select>
+
 </mapper>

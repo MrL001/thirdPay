@@ -1,6 +1,7 @@
 package com.hntyy.controller.yeepay;
 
 import com.hntyy.bean.yeepay.query.*;
+import com.hntyy.bean.yeepay.result.TradeOrderResult;
 import com.hntyy.bean.yeepay.result.TradeRefundResult;
 import com.hntyy.enums.NotifyUrlEnum;
 import com.hntyy.service.yeepay.*;
@@ -32,6 +33,12 @@ public class YeepayRefundController {
     @Autowired
     private NotifyUrlService notifyUrlService;
 
+    @Autowired
+    private TradeOrderParamResultService tradeOrderParamResultService;
+
+    @Autowired
+    private TradeRefundResultService tradeRefundResultService;
+
     @ApiOperation(value="申请退款")
     @RequestMapping(value = "/tradeRefund",method = RequestMethod.POST)
     public TradeRefundResult tradeRefund(@RequestBody TradeRefundParam tradeRefundParam){
@@ -41,7 +48,9 @@ public class YeepayRefundController {
         request.addParam("merchantNo", tradeRefundParam.getMerchantNo());
         request.addParam("orderId", tradeRefundParam.getOrderId());
         request.addParam("refundRequestId", tradeRefundParam.getRefundRequestId());
-        request.addParam("uniqueOrderNo", tradeRefundParam.getUniqueOrderNo());
+        // 通过订单id查询 易宝收款订单号
+        TradeOrderResult tradeOrderResult = tradeOrderParamResultService.getTradeOrderResultByOrderId(tradeRefundParam.getOrderId());
+        request.addParam("uniqueOrderNo", tradeOrderResult != null ? tradeOrderResult.getUniqueOrderNo():"");
         request.addParam("refundAmount", tradeRefundParam.getRefundAmount());
         request.addParam("description", tradeRefundParam.getDescription());
         request.addParam("notifyUrl", NotifyUrlEnum.SQTK.getValue());
@@ -89,9 +98,11 @@ public class YeepayRefundController {
         YopRequest request = new YopRequest();
         request.addParam("parentMerchantNo", tradeRefundParamQuery.getParentMerchantNo());
         request.addParam("merchantNo", tradeRefundParamQuery.getMerchantNo());
-        request.addParam("refundRequestId", tradeRefundParamQuery.getRefundRequestId());
         request.addParam("orderId", tradeRefundParamQuery.getOrderId());
-        request.addParam("uniqueRefundNo", tradeRefundParamQuery.getUniqueRefundNo());
+        // 通过订单id查询申请退款返回结果
+        TradeRefundResult tradeRefundResult = tradeRefundResultService.getTradeRefundResultByOrderId(tradeRefundParamQuery.getOrderId());
+        request.addParam("refundRequestId", tradeRefundResult != null ? tradeRefundResult.getRefundRequestId():"");
+        request.addParam("uniqueRefundNo", tradeRefundResult != null ? tradeRefundResult.getRefundRequestId():"");
         try {
             YopResponse response = YopRsaClient.get(apiUri, request);
             Map result = (Map) response.getResult();

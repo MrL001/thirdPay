@@ -16,4 +16,9 @@ public class TradeOrderParamResultServiceImpl implements TradeOrderParamResultSe
     public void insert(TradeOrderResult tradeOrderResult) {
         tradeOrderResultMapper.insert(tradeOrderResult);
     }
+
+    @Override
+    public TradeOrderResult getTradeOrderResultByOrderId(String orderId) {
+        return tradeOrderResultMapper.getTradeOrderResultByOrderId(orderId);
+    }
 }

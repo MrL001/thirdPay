@@ -9,4 +9,10 @@
         values (#{code},#{message},#{bizSystemNo},#{parentMerchantNo},#{merchantNo},#{orderId},#{uniqueOrderNo},#{token},#{orderAmount},NOW())
     </insert>
 
+    <select id="getTradeOrderResultByOrderId" resultType="com.hntyy.bean.yeepay.result.TradeOrderResult">
+        SELECT code code,message message,biz_system_no bizSystemNo,parent_merchant_no parentMerchantNo,merchant_no merchantNo,order_id orderId,unique_orderno uniqueOrderNo,
+        token token,order_amount orderAmount
+        FROM trade_order_result where order_id=#{orderId}
+    </select>
+
 </mapper>

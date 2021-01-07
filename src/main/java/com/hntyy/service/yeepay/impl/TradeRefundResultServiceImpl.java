@@ -17,4 +17,9 @@ public class TradeRefundResultServiceImpl implements TradeRefundResultService {
     public void insert(TradeRefundResult tradeRefundResult) {
         tradeRefundResultMapper.insert(tradeRefundResult);
     }
+
+    @Override
+    public TradeRefundResult getTradeRefundResultByOrderId(String orderId) {
+        return tradeRefundResultMapper.getTradeRefundResultByOrderId(orderId);
+    }
 }
