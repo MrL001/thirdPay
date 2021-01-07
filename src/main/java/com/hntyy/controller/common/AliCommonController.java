@@ -27,8 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.net.URLEncoder;
 import java.util.UUID;
 
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
-
 @Slf4j
 @RestController
 @RequestMapping("/aliCommonController")

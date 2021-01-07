@@ -8,12 +8,20 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import org.springframework.beans.factory.annotation.Value;
 
 @Configuration
+@EnableSwagger2
 public class SwaggerConfig {
+
+    @Value("${swagger.host}")
+    private String swaggerHost;
+
     @Bean
     public Docket docket() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .host(this.swaggerHost)
                 .apiInfo(apiInfo())        //这个方法的作用（生成接口的时候页面显示的信息）
                 .select()         //表示的是选择那些路径和API生成文档
                 .apis(RequestHandlerSelectors.basePackage("com.hntyy.controller"))           //告诉他要扫描的接口存在的这个包
