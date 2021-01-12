@@ -32,8 +32,10 @@ public class WechatCommonController {
     @ApiOperation(value = "获取openId")
     @RequestMapping(value = "/getWxOpenId", method = RequestMethod.GET)
     public String getWxOpenId(@ApiParam(value = "code", required = true) @RequestParam(name = "code") String code) throws Exception {
+        log.info("---------------code:"+code);
         String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + wxAppId + "&secret=" + secret + "&js_code=" + code + "&grant_type=authorization_code";
         String str = WeChatUtil.httpRequest(url, "GET", null);
+        log.info("------------------ str:"+str);
         JSONObject jsonObject = JSONObject.parseObject(str);
         String openid = jsonObject.get("openid").toString();
         return openid;
