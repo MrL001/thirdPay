@@ -8,6 +8,7 @@ import com.hntyy.service.common.ProductsCodeService;
 import com.hntyy.service.common.ProvinceCityDistrictCodeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -49,5 +50,10 @@ public class CommonCodeController {
         return productsCodeEntities;
     }
 
+    @ApiOperation(value="获取log")
+    @RequestMapping(value = "/getLogger",method = RequestMethod.GET)
+    public void getLogger(@ApiParam(value = "res", required = true) @RequestParam(name = "res") String res){
+        log.info("res:"+res);
+    }
 
 }
