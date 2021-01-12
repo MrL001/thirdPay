@@ -24,11 +24,11 @@ import java.util.Map;
  */
 public enum  NotifyUrlEnum {
 
-    TYSHRW(1,"http://lsj.ngrok2.xiaomiqiu.cn/notifyUrl/registerSaasMerchant","特约商户入网回调地址"),
-    SHCPFLBG(2,"http://lsj.ngrok2.xiaomiqiu.cn/notifyUrl/merProductFeeModify","商户产品费率变更"),
-    ZFJG(3,"http://lsj.ngrok2.xiaomiqiu.cn/notifyUrl/payResult","支付结果"),
-    QSCG(4,"http://lsj.ngrok2.xiaomiqiu.cn/notifyUrl/reckoningSuccess","清算成功"),
-    SQTK(5,"http://lsj.ngrok2.xiaomiqiu.cn/notifyUrl/tradeRefund","申请退款");
+    TYSHRW(1,"https://yeepay.mjjzxyh.com/notifyUrl/registerSaasMerchant","特约商户入网回调地址"),
+    SHCPFLBG(2,"https://yeepay.mjjzxyh.com/notifyUrl/merProductFeeModify","商户产品费率变更"),
+    ZFJG(3,"https://yeepay.mjjzxyh.com/notifyUrl/payResult","支付结果"),
+    QSCG(4,"https://yeepay.mjjzxyh.com/notifyUrl/reckoningSuccess","清算成功"),
+    SQTK(5,"https://yeepay.mjjzxyh.com/notifyUrl/tradeRefund","申请退款");
 
     private final int key;
     private final String value;

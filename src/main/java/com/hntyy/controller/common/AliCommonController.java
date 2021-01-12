@@ -1,5 +1,6 @@
 package com.hntyy.controller.common;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
@@ -49,7 +50,9 @@ public class AliCommonController {
     @ApiOperation(value="获取userId")
     @RequestMapping(value = "/getAliUserId",method = RequestMethod.GET)
     public String getAliUserId(@ApiParam(value = "authCode",required = true)@RequestParam(name = "authCode") String authCode) throws Exception {
+        log.info("---------------authCode:"+authCode);
         AlipaySystemOauthTokenResponse response = getAccessToken(authCode);
+        log.info("------------------ response:"+ JSON.toJSONString(response));
         String userId = response.getUserId();
         return userId;
     }

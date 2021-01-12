@@ -67,7 +67,11 @@
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
-			<version>1.2.28</version>
+			<version>1.2.62</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
 		</dependency>
 
 		<!-- lombok 提供了简单的注解的形式来帮助我们简化消除一些必须有但显得很臃肿的 java 代码 -->
