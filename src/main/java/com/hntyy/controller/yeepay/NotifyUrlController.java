@@ -26,6 +26,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -135,6 +137,7 @@ public class NotifyUrlController {
     @ApiOperation(value="支付结果 回调地址")
     @RequestMapping(value = "/payResult",method = RequestMethod.POST)
     public String payResult(HttpServletRequest request){
+        log.info("进入支付结果回调地址");
         String response = request.getParameter("response");
         DigitalEnvelopeDTO dto = new DigitalEnvelopeDTO();
         dto.setCipherText(response);
@@ -157,14 +160,23 @@ public class NotifyUrlController {
             payResultNotify.setMerchantNo(jsonObject.getString("merchantNo") != null ? jsonObject.getString("merchantNo"):null);
             payResultNotify.setStatus(jsonObject.getString("status") != null ? jsonObject.getString("status"):null);
             payResultNotifyService.insert(payResultNotify);
+            log.info("回调校源汇地址");
             // 取最新地址回调
             NotifyUrlEntity notifyUrl = notifyUrlService.getNotifyUrl(payResultNotify.getOrderId(), NotifyUrlEnum.ZFJG.getKey());
+            log.info("查看返回值，notifyUrl:"+JSON.toJSONString(notifyUrl));
             String result = "";
             if (notifyUrl != null){
                 String paramUrl = notifyUrl.getParamUrl();
                 // 做处理
                 if (paramUrl != null && !"".equals(paramUrl)){
-                    result = HttpClientUtils.doPostJson(notifyUrl.getParamUrl(), jsonObject.toJSONString());
+                    log.info("发起校源汇地址请求:"+paramUrl);
+                    JSONObject params = new JSONObject();
+                    params.put("orderId",jsonObject.getString("orderId"));
+                    params.put("payAmount",jsonObject.getString("payAmount"));
+                    params.put("status",jsonObject.getString("status"));
+                    log.info("请求参数:"+JSON.toJSONString(params));
+                    result = HttpClientUtils.doPostJson(notifyUrl.getParamUrl(), params.toJSONString());
+                    log.info("返回结果："+result);
                 }
             }
             return result;
@@ -208,7 +220,11 @@ public class NotifyUrlController {
                 String paramUrl = notifyUrl.getParamUrl();
                 // 做处理
                 if (paramUrl != null && !"".equals(paramUrl)){
-                    result = HttpClientUtils.doPostJson(notifyUrl.getParamUrl(), jsonObject.toJSONString());
+                    JSONObject params = new JSONObject();
+                    params.put("orderId",jsonObject.getString("orderId"));
+                    params.put("orderAmount",jsonObject.getString("orderAmount"));
+                    params.put("status",jsonObject.getString("status"));
+                    result = HttpClientUtils.doPostJson(notifyUrl.getParamUrl(), params.toJSONString());
                 }
             }
             return result;
@@ -262,6 +278,17 @@ public class NotifyUrlController {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    public static void main(String[] args) {
+        JSONObject params = new JSONObject();
+        params.put("orderId","1348967471406592002");
+        params.put("payAmount","0.01");
+        params.put("status","SUCCESS");
+        log.info("请求参数:"+JSON.toJSONString(params));
+        String result = HttpClientUtils.doPostJson("http://server.mjjzxyh.com/payment/yeepayNotifyUrl", params.toJSONString());
+        System.out.println(result);
     }
 
 }
